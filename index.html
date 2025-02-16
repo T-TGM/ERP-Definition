@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Roblox ERP Dictionary</title>
     <style>
+        /* Full Red Theme */
         body {
             font-family: Arial, sans-serif;
-            background-color: #1e1e1e;
-            color: #ddd;
+            background-color: #0a0000;
+            color: #ff5555;
             display: flex;
             justify-content: center;
             align-items: flex-start;
@@ -16,39 +17,54 @@
             margin: 0;
             padding-top: 60px;
             overflow: hidden;
+            cursor: none; /* Hide default cursor */
         }
+
+        /* Container */
         .container {
             width: 90%;
             max-width: 1000px;
-            background: #2a2a2a;
+            background: #150000;
             padding: 40px;
             border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.6);
             text-align: center;
             max-height: 80vh;
             overflow-y: auto;
+            border: 2px solid red;
         }
+
         h1 {
             margin-bottom: 25px;
             font-size: 2em;
-            color: #fff;
+            color: #ff2222;
+            text-shadow: 0 0 10px red;
         }
+
+        /* Definitions */
         .definition {
             margin-bottom: 20px;
             padding: 15px;
-            background: #333;
+            background: #200000;
             border-radius: 8px;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: all 0.3s ease-in-out;
+            border: 2px solid #ff4444;
+            text-shadow: 0 0 5px red;
         }
+
         .definition:hover {
-            background: #444;
+            background: #300000;
+            box-shadow: 0 0 15px red;
+            transform: scale(1.02);
         }
+
         .term {
             font-weight: bold;
             font-size: 1.3em;
-            color: #ffcc00;
+            color: #ff6666;
         }
+
         /* Custom Cursor */
         .cursor {
             width: 15px;
@@ -59,6 +75,13 @@
             pointer-events: none;
             transform: translate(-50%, -50%);
             box-shadow: 0 0 10px red;
+            transition: transform 0.1s ease-out;
+        }
+
+        /* Cursor Click Effect */
+        .cursor-click {
+            transform: scale(2);
+            opacity: 0.6;
         }
     </style>
 </head>
@@ -97,6 +120,15 @@
         document.addEventListener("mousemove", (e) => {
             cursor.style.left = `${e.clientX}px`;
             cursor.style.top = `${e.clientY}px`;
+        });
+
+        // Cursor Click Effect
+        document.addEventListener("mousedown", () => {
+            cursor.classList.add("cursor-click");
+        });
+
+        document.addEventListener("mouseup", () => {
+            cursor.classList.remove("cursor-click");
         });
     </script>
 </body>
