@@ -18,9 +18,24 @@
             padding-top: 60px;
             overflow: hidden;
             position: relative;
+            cursor: none;
         }
 
-        /* ⚡ Neon Grid Effect */
+        /* 🔥 Custom Cursor */
+        .custom-cursor {
+            position: fixed;
+            width: 25px;
+            height: 25px;
+            border: 3px solid red;
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s ease-out;
+            box-shadow: 0 0 10px red;
+            z-index: 10000;
+        }
+
+        /* ⚡ Neon Background Pulse */
         body::before {
             content: "";
             position: absolute;
@@ -47,6 +62,7 @@
             height: 100%;
             pointer-events: none;
             overflow: hidden;
+            z-index: -1;
         }
 
         .particle {
@@ -78,6 +94,11 @@
             border: 3px solid red;
             position: relative;
             z-index: 2;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .container:hover {
+            transform: scale(1.02);
         }
 
         /* 🖱️ Upgraded Scrollbar */
@@ -107,6 +128,7 @@
             font-size: 2.2em;
             color: #ff2222;
             text-shadow: 0 0 20px red;
+            animation: fadeIn 1s ease-in-out;
         }
 
         /* 🎭 Interactive Search Bar */
@@ -144,6 +166,7 @@
             user-select: none;
             margin-bottom: 20px;
             box-shadow: 0 0 15px red;
+            animation: fadeIn 1.2s ease-in-out;
         }
 
         /* 💡 Definition Cards */
@@ -173,9 +196,17 @@
             text-shadow: 0 0 15px red;
         }
 
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
     </style>
 </head>
 <body>
+
+    <!-- 🖱️ Custom Cursor -->
+    <div class="custom-cursor"></div>
 
     <!-- 🎇 Particle Background -->
     <div class="particles"></div>
@@ -190,26 +221,13 @@
 
         <!-- Info Board -->
         <div class='info-board'>
-            <p><strong>🚨 Important:</strong> ERP accounts are now censoring words with X's or other letters, e.g., "rough" censored as "rxxgh." This makes it harder to report & terminate these accounts. Moderators, please take note.</p>
+            <p><strong>🚨 Important:</strong> ERP accounts are censoring words with X's or other letters, making reports harder. Moderators, please take note.</p>
         </div>
 
         <div id='definitions'></div>
     </div>
 
     <script>
-        // Generate floating particles dynamically
-        function createParticles() {
-            const particleContainer = document.querySelector(".particles");
-            for (let i = 0; i < 50; i++) {
-                let particle = document.createElement("div");
-                particle.className = "particle";
-                particle.style.left = `${Math.random() * 100}vw`;
-                particle.style.animationDuration = `${Math.random() * 5 + 3}s`;
-                particleContainer.appendChild(particle);
-            }
-        }
-        createParticles();
-
         const definitions = [
     { "term": "ERP", "synonyms": ["Sex", "Erotic Roleplay"], "definition": "Erotic role-play is an activity that predators engage in on the Roblox platform. It involes sexual intercourse on roblox or sexual roleplay in chat messages" },
     { "term": "Roblox Condo", "synonyms": ["Explicit Game", "ERP Place"], "definition": "A game designed for explicit roleplay, often violating Roblox's ToS." },
@@ -266,7 +284,7 @@
     { "term": "Scat", "synonyms": ["Copro", "Brown Play", "Messy", "Doodoo Kink", "S.K."], "definition": "Refers to a fetish involving feces, which is an extreme form of ERP. Any mention of this is a major violation of Roblox’s ToS." },  
     { "term": "Dump", "synonyms": ["Load Drop", "Spill Zone", "Seed Collector", "Dmp", "Gutter"], "definition": "In an ERP context, 'dump' can be short for 'cumdump,' referring to someone who allows multiple partners to ejaculate inside them without protection. This is an explicit and extreme violation of Roblox’s rules." },  
     { "term": "Cumdump", "synonyms": ["Seed Tank", "Sperm Vault", "Receptacle", "Dumptruck", "C.Dump"], "definition": "A promiscuous woman who is not choosy about her sexual partners and who allows most or all men who she has sex with to cum inside of her without protection. This term is explicit and violates Roblox’s policies on sexual content." },  
-    { "term": "Blvcksshota", "synonyms": ["Backshot", "Bkshot", "Bcksh0t", "Bcksh0ta", "Bckshoota", "Bkshoota", "Bksh0ta"], "definition": "A bypassed version of 'Backshot,' a sexual position commonly referenced in ERP. Any use of this or similar bypasses violates Roblox’s ToS." } 
+    { "term": "Blvcksshota", "synonyms": ["Backshot", "Bkshot", "Bcksh0t", "Bcksh0ta", "Bckshoota", "Bkshoota", "Bksh0ta"], "definition": "A bypassed version of 'Backshot,' a sexual position commonly referenced in ERP. Any use of this or similar bypasses violates Roblox’s ToS." }
         ];
 
         const container = document.getElementById('definitions');
@@ -274,17 +292,15 @@
 
         function renderDefinitions(filter = '') {
             container.innerHTML = '';
-            definitions.forEach(({ term, definition }, index) => {
-                if (term.toLowerCase().includes(filter.toLowerCase())) {
-                    const div = document.createElement('div');
-                    div.classList.add('definition');
-                    div.innerHTML = `<p class='term'>${index + 1}. ${term}</p><p>${definition}</p>`;
-                    container.appendChild(div);
+            definitions.forEach(({ term, definition, synonyms }) => {
+                if (term.toLowerCase().includes(filter.toLowerCase()) || synonyms.some(s => s.toLowerCase().includes(filter.toLowerCase()))) {
+                    container.innerHTML += `<div class='definition'><p class='term'>${term}</p><p>${definition}</p></div>`;
                 }
             });
         }
 
         searchBar.addEventListener('input', (e) => renderDefinitions(e.target.value));
+
         renderDefinitions();
     </script>
 </body>
