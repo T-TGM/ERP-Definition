@@ -32,6 +32,21 @@
             max-height: 80vh;
             overflow-y: auto;
             border: 2px solid red;
+            scrollbar-width: thin; /* Clean scrollbar */
+            scrollbar-color: red black; 
+        }
+
+        .container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .container::-webkit-scrollbar-track {
+            background: black;
+        }
+
+        .container::-webkit-scrollbar-thumb {
+            background: red;
+            border-radius: 4px;
         }
 
         h1 {
@@ -47,10 +62,10 @@
             padding: 15px;
             background: #200000;
             border-radius: 8px;
-            cursor: pointer;
             transition: all 0.3s ease-in-out;
             border: 2px solid #ff4444;
             text-shadow: 0 0 5px red;
+            user-select: none; /* Disable text selection */
         }
 
         .definition:hover {
@@ -73,20 +88,25 @@
             border-radius: 50%;
             position: absolute;
             pointer-events: none;
-            transform: translate(-50%, -50%);
             box-shadow: 0 0 10px red;
-            transition: transform 0.1s ease-out;
+            transform: translate(-50%, -50%);
         }
 
-        /* Cursor Click Effect */
-        .cursor-click {
-            transform: scale(2);
-            opacity: 0.6;
+        /* Cursor Auto-Center Effect */
+        @keyframes centerCursor {
+            0% { left: 50vw; top: 50vh; }
+            100% { left: 50vw; top: 50vh; }
         }
+
+        .cursor-auto-center {
+            position: fixed;
+            animation: centerCursor 0.1s infinite linear;
+        }
+
     </style>
 </head>
 <body>
-    <div class="cursor" id="cursor"></div>
+    <div class="cursor cursor-auto-center" id="cursor"></div>
 
     <div class="container">
         <h1>Roblox ERP Dictionary</h1>
@@ -95,41 +115,32 @@
 
     <script>
         const definitions = [
-            { term: "Roblox Condo", definition: "A game designed for explicit roleplay, often violating Roblox's ToS.", link: "https://t-tgm.github.io/ERP-Definition/roblox-condo" },
-            { term: "MDNI", definition: "Short for 'Minors Do Not Interact,' often used in ERP communities.", link: "https://t-tgm.github.io/ERP-Definition/mdni" },
-            { term: "Blue App", definition: "Bypassed way to say Discord, the icon is similar to a blue icon.", link: "https://t-tgm.github.io/ERP-Definition/blue-app" },
-            { term: "💿/📀", definition: "Bypassed way to say Discord, disc is close to the word Discord which proves it.", link: "https://t-tgm.github.io/ERP-Definition/disc" }
+            { term: "Roblox Condo", definition: "A game designed for explicit roleplay, often violating Roblox's ToS." },
+            { term: "MDNI", definition: "Short for 'Minors Do Not Interact,' often used in ERP communities." },
+            { term: "Blue App", definition: "Bypassed way to say Discord, the icon is similar to a blue icon." },
+            { term: "💿/📀", definition: "Bypassed way to say Discord, disc is close to the word Discord which proves it." }
         ];
 
         const container = document.getElementById("definitions");
 
         function renderDefinitions() {
             container.innerHTML = "";
-            definitions.forEach(({ term, definition, link }) => {
+            definitions.forEach(({ term, definition }) => {
                 const div = document.createElement("div");
                 div.classList.add("definition");
                 div.innerHTML = `<p class='term'>${term}</p><p>${definition}</p>`;
-                div.onclick = () => window.open(link, "_blank");
                 container.appendChild(div);
             });
         }
         renderDefinitions();
 
-        // Cursor Tracking Fix
+        // Cursor Effect
         const cursor = document.getElementById("cursor");
         document.addEventListener("mousemove", (e) => {
             cursor.style.left = `${e.clientX}px`;
             cursor.style.top = `${e.clientY}px`;
         });
 
-        // Cursor Click Effect
-        document.addEventListener("mousedown", () => {
-            cursor.classList.add("cursor-click");
-        });
-
-        document.addEventListener("mouseup", () => {
-            cursor.classList.remove("cursor-click");
-        });
     </script>
 </body>
 </html>
