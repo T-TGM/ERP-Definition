@@ -32,8 +32,8 @@
             max-height: 80vh;
             overflow-y: auto;
             border: 2px solid red;
-            scrollbar-width: thin; /* Clean scrollbar */
-            scrollbar-color: red black; 
+            scrollbar-width: thin; /* Thin scrollbar */
+            scrollbar-color: red black;
         }
 
         .container::-webkit-scrollbar {
@@ -86,27 +86,23 @@
             height: 15px;
             background-color: red;
             border-radius: 50%;
-            position: absolute;
-            pointer-events: none;
-            box-shadow: 0 0 10px red;
-            transform: translate(-50%, -50%);
-        }
-
-        /* Cursor Auto-Center Effect */
-        @keyframes centerCursor {
-            0% { left: 50vw; top: 50vh; }
-            100% { left: 50vw; top: 50vh; }
-        }
-
-        .cursor-auto-center {
             position: fixed;
-            animation: centerCursor 0.1s infinite linear;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 10px red;
+            transition: transform 0.08s ease-out, left 0.08s linear, top 0.08s linear;
+        }
+
+        /* Cursor Click Effect */
+        .cursor-click {
+            transform: scale(1.8);
+            opacity: 0.7;
         }
 
     </style>
 </head>
 <body>
-    <div class="cursor cursor-auto-center" id="cursor"></div>
+    <div class="cursor" id="cursor"></div>
 
     <div class="container">
         <h1>Roblox ERP Dictionary</h1>
@@ -136,9 +132,22 @@
 
         // Cursor Effect
         const cursor = document.getElementById("cursor");
+
         document.addEventListener("mousemove", (e) => {
-            cursor.style.left = `${e.clientX}px`;
-            cursor.style.top = `${e.clientY}px`;
+            const scaleX = window.innerWidth / 1920;
+            const scaleY = window.innerHeight / 1080;
+
+            cursor.style.left = `${e.clientX / scaleX}px`;
+            cursor.style.top = `${e.clientY / scaleY}px`;
+        });
+
+        // Cursor Click Effect
+        document.addEventListener("mousedown", () => {
+            cursor.classList.add("cursor-click");
+        });
+
+        document.addEventListener("mouseup", () => {
+            cursor.classList.remove("cursor-click");
         });
 
     </script>
