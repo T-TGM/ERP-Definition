@@ -5,6 +5,7 @@
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     <title>Roblox ERP Dictionary</title>
     <style>
+        /* 🔥 Epic Animated Background */
         @keyframes bgAnimation {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
@@ -25,10 +26,10 @@
             padding-top: 60px;
             overflow: hidden;
             position: relative;
-            cursor: none; /* 🔥 Hides all default cursors */
+            cursor: none; /* Hides all default cursors */
         }
 
-        /* 🔥 Custom Red Cursor */
+        /* 🔥 Fully Red Custom Cursor */
         .custom-cursor {
             position: fixed;
             width: 12px;
@@ -98,7 +99,6 @@
             text-align: center;
             box-shadow: 0 0 20px red;
             transition: all 0.2s ease-in-out;
-            cursor: none; /* 🔥 Hides the cursor in the search bar */
         }
 
         #search-bar:focus {
@@ -113,16 +113,17 @@
             padding: 15px;
             background: rgba(32, 0, 0, 0.95);
             border-radius: 8px;
-            transition: all 0.2s ease-in-out;
+            transition: all 0.4s ease-in-out; /* Smoother transition */
             border: 3px solid #ff4444;
             text-shadow: 0 0 5px red;
             user-select: none;
             position: relative;
             box-shadow: 0 0 20px red;
             transform: scale(1);
+            opacity: 1;
         }
 
-        /* 🔥 Popout Effect Restored */
+        /* 🔥 Popout Effect */
         .definition:hover {
             background: rgba(48, 0, 0, 0.95);
             box-shadow: 0 0 30px red;
@@ -136,15 +137,23 @@
             text-shadow: 0 0 15px red;
         }
 
-        /* 🔢 Numbering on Definitions */
+        /* 🔢 Number Position */
         .definition-number {
             position: absolute;
             top: 10px;
             right: 15px;
             font-size: 1.2em;
-            font-weight: bold;
-            color: #ff9999;
-            text-shadow: 0 0 15px red;
+            color: #ff8888;
+            text-shadow: 0 0 10px red;
+        }
+
+        /* 🏆 Footer */
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.1em;
+            color: #ff4444;
+            text-shadow: 0 0 10px red;
         }
 
     </style>
@@ -168,6 +177,9 @@
         </div>
 
         <div id='definitions'></div>
+
+        <!-- 🏆 Footer -->
+        <div class="footer">Made by TGM</div>
     </div>
 
     <script>
@@ -239,17 +251,13 @@
 
             definitions.forEach(({ number, term, definition, synonyms }) => {
                 if (
-                    term.toLowerCase().includes(filter.toLowerCase()) ||
+                    term.toLowerCase().includes(filter.toLowerCase()) || 
                     synonyms.some(s => s.toLowerCase().includes(filter.toLowerCase())) ||
                     number.toString().includes(filter)
                 ) {
                     const defElement = document.createElement('div');
                     defElement.className = 'definition';
-                    defElement.innerHTML = `
-                        <span class="definition-number">#${number}</span>
-                        <p class='term'>${term}</p>
-                        <p>${definition}</p>
-                    `;
+                    defElement.innerHTML = `<div class='definition-number'>#${number}</div><p class='term'>${term}</p><p>${definition}</p>`;
                     container.appendChild(defElement);
                 }
             });
@@ -257,7 +265,7 @@
             container.style.opacity = 0;
             setTimeout(() => {
                 container.style.opacity = 1;
-            }, 100);
+            }, 200); /* Smoother transition */
         }
 
         searchBar.addEventListener('input', (e) => {
@@ -265,14 +273,11 @@
         });
 
         document.addEventListener('mousemove', (e) => {
-            requestAnimationFrame(() => {
-                cursor.style.left = `${e.clientX}px`;
-                cursor.style.top = `${e.clientY}px`;
-            });
+            cursor.style.left = `${e.clientX}px`;
+            cursor.style.top = `${e.clientY}px`;
         });
 
         renderDefinitions();
     </script>
 </body>
 </html>
-
