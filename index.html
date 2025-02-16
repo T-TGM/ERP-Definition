@@ -96,15 +96,21 @@
             z-index: 9999;
         }
 
-        /* Cursor Click Effect */
-        .cursor-click {
-            transform: scale(1.8);
-            opacity: 0.7;
+        /* Bottom Text Section */
+        .bottom-text {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3em;
+            color: #ff5555;
+            text-shadow: 0 0 5px red;
         }
 
-        /* Ensure cursor is visible over interactive elements */
-        .definition, .container, h1 {
-            cursor: none !important; /* Forces custom cursor to remain visible */
+        .bottom-text img {
+            width: 24px; /* Adjust icon size */
+            height: 24px;
+            margin-right: 10px;
         }
 
     </style>
@@ -115,6 +121,12 @@
     <div class="container">
         <h1>Roblox ERP Dictionary</h1>
         <div id="definitions"></div>
+        
+        <!-- Customizable Text Section -->
+        <div class="Made by TGM. RTG here https://discord.gg/NpwMvVuPAZ">
+            <img src="https://cdn.discordapp.com/icons/1278443079564525643/0845a0b3cca89aed44b3e086d0563d93.png?size=512" alt="Icon"> <!-- Replace 'icon.png' with your icon -->
+            <span>Customizable Text Here</span>
+        </div>
     </div>
 
     <script>
@@ -144,15 +156,6 @@
         document.addEventListener("mousemove", (e) => {
             cursor.style.left = `${e.clientX}px`;
             cursor.style.top = `${e.clientY}px`;
-        });
-
-        // Cursor Click Effect
-        document.addEventListener("mousedown", () => {
-            cursor.classList.add("cursor-click");
-        });
-
-        document.addEventListener("mouseup", () => {
-            cursor.classList.remove("cursor-click");
         });
 
     </script>
