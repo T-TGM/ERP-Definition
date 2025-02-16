@@ -7,65 +7,70 @@
     <style>
         /* General Page Styles */
         body {
-            font-family: Arial, sans-serif;
-            background-color: #121212;
+            font-family: 'Arial', sans-serif;
+            background-color: #0d0d0d;
             color: #e0e0e0;
             display: flex;
             justify-content: center;
             align-items: flex-start;
             height: 100vh;
             margin: 0;
-            padding-top: 60px;
+            padding-top: 50px;
         }
         
         /* Main Container */
         .container {
-            width: 90%;
+            width: 85%;
             max-width: 900px;
-            background: #1e1e1e;
+            background: rgba(30, 30, 30, 0.9);
             padding: 35px;
-            border-radius: 14px;
-            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.5);
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(255, 204, 0, 0.15);
             text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 204, 0, 0.2);
         }
         
         /* Title Styling */
         h1 {
-            font-size: 2.4em;
+            font-size: 2.6em;
             color: #ffcc00;
             margin-bottom: 30px;
-            text-shadow: 0 0 10px rgba(255, 204, 0, 0.7);
+            text-shadow: 0 0 12px rgba(255, 204, 0, 0.8);
+            letter-spacing: 1px;
         }
 
         /* Definition Box Styling */
         .definition {
-            background: #242424;
-            padding: 18px;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            background: rgba(40, 40, 40, 0.8);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 18px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             border-left: 6px solid #ffcc00;
+            backdrop-filter: blur(8px);
         }
 
         /* Hover Effect for Cards */
         .definition:hover {
             transform: translateY(-5px);
-            box-shadow: 0 5px 20px rgba(255, 204, 0, 0.3);
+            box-shadow: 0 0 20px rgba(255, 204, 0, 0.4);
+            background: rgba(50, 50, 50, 0.95);
         }
 
         /* Term Styling */
         .term {
             font-weight: bold;
-            font-size: 1.4em;
+            font-size: 1.5em;
             color: #ffcc00;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
         }
 
         /* Definition Text */
         .definition p {
             margin: 0;
-            font-size: 1.1em;
-            color: #ccc;
+            font-size: 1.2em;
+            color: #ddd;
         }
     </style>
 </head>
