@@ -5,7 +5,7 @@
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     <title>Roblox ERP Dictionary</title>
     <style>
-        /* Cool Animated Background */
+        /* 🔥 Epic Animated Background */
         body {
             font-family: Arial, sans-serif;
             background: black;
@@ -20,7 +20,7 @@
             position: relative;
         }
 
-        /* Enhanced Background Animation */
+        /* ⚡ Neon Grid Effect */
         body::before {
             content: "";
             position: absolute;
@@ -28,39 +28,50 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle, rgba(255, 0, 0, 0.2) 10%, rgba(0, 0, 0, 1) 80%);
-            animation: pulseBackground 6s infinite alternate ease-in-out;
+            background: linear-gradient(to bottom, rgba(255, 0, 0, 0.1), black 80%);
+            animation: pulseBackground 4s infinite alternate ease-in-out;
+            z-index: -2;
         }
 
         @keyframes pulseBackground {
-            0% { filter: brightness(1); }
-            100% { filter: brightness(1.2); }
+            0% { opacity: 0.5; }
+            100% { opacity: 0.8; }
         }
 
-        /* Floating Red Particles */
-        body::after {
-            content: "";
-            position: absolute;
+        /* 💨 Floating Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            background: url('https://imgur.com/a/DroLzXd') repeat; /* Replace with any cool particles image */
-            opacity: 0.1;
-            animation: moveParticles 15s infinite linear;
+            pointer-events: none;
+            overflow: hidden;
         }
 
-        @keyframes moveParticles {
-            from { background-position: 0 0; }
-            to { background-position: 100vw 100vh; }
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: red;
+            opacity: 0.6;
+            border-radius: 50%;
+            animation: floatParticles 6s infinite linear;
         }
 
-        /* Main Container */
+        @keyframes floatParticles {
+            from { transform: translateY(100vh) scale(1); opacity: 0.8; }
+            to { transform: translateY(-10vh) scale(0.5); opacity: 0; }
+        }
+
+        /* 🔥 Main Container */
         .container {
             width: 90%;
             max-width: 1000px;
-            background: rgba(21, 0, 0, 0.9);
+            background: rgba(21, 0, 0, 0.95);
             padding: 40px;
             border-radius: 12px;
-            box-shadow: 0 0 30px rgba(255, 0, 0, 0.8);
+            box-shadow: 0 0 40px rgba(255, 0, 0, 0.8);
             text-align: center;
             max-height: 80vh;
             overflow-y: auto;
@@ -69,7 +80,7 @@
             z-index: 2;
         }
 
-        /* Improved Scrollbar */
+        /* 🖱️ Upgraded Scrollbar */
         .container::-webkit-scrollbar {
             width: 12px;
         }
@@ -83,16 +94,22 @@
             background: linear-gradient(45deg, #ff0000, #660000);
             border-radius: 6px;
             box-shadow: 0 0 10px red;
+            animation: pulseScroll 1.5s infinite alternate ease-in-out;
+        }
+
+        @keyframes pulseScroll {
+            0% { filter: brightness(1); }
+            100% { filter: brightness(1.4); }
         }
 
         h1 {
             margin-bottom: 25px;
             font-size: 2.2em;
             color: #ff2222;
-            text-shadow: 0 0 15px red;
+            text-shadow: 0 0 20px red;
         }
 
-        /* Search Bar */
+        /* 🎭 Interactive Search Bar */
         .search-container {
             margin-bottom: 20px;
         }
@@ -117,7 +134,7 @@
             transform: scale(1.05);
         }
 
-        /* Info Board */
+        /* 🚨 Info Board */
         .info-board {
             padding: 15px;
             background: rgba(32, 0, 0, 0.9);
@@ -129,36 +146,40 @@
             box-shadow: 0 0 15px red;
         }
 
-        /* Definition Cards */
+        /* 💡 Definition Cards */
         .definition {
             margin-bottom: 20px;
             padding: 15px;
-            background: rgba(32, 0, 0, 0.9);
+            background: rgba(32, 0, 0, 0.95);
             border-radius: 8px;
             transition: all 0.3s ease-in-out;
             border: 3px solid #ff4444;
             text-shadow: 0 0 5px red;
             user-select: none;
             position: relative;
-            box-shadow: 0 0 15px red;
+            box-shadow: 0 0 20px red;
         }
 
         .definition:hover {
             background: rgba(48, 0, 0, 0.95);
             box-shadow: 0 0 30px red;
-            transform: scale(1.03);
+            transform: scale(1.05);
         }
 
         .term {
             font-weight: bold;
             font-size: 1.5em;
             color: #ff6666;
-            text-shadow: 0 0 10px red;
+            text-shadow: 0 0 15px red;
         }
 
     </style>
 </head>
 <body>
+
+    <!-- 🎇 Particle Background -->
+    <div class="particles"></div>
+
     <div class='container'>
         <h1>Roblox ERP Dictionary</h1>
 
@@ -169,13 +190,26 @@
 
         <!-- Info Board -->
         <div class='info-board'>
-            <p><strong>🚨 Important:</strong> ERP accounts are now "censoring" these words with X's or any other letter, e.g., "rough" censored is "rxxgh." This makes it harder to report & terminate these ERP accounts. If any moderator is reading this, please take note.</p>
+            <p><strong>🚨 Important:</strong> ERP accounts are now censoring words with X's or other letters, e.g., "rough" censored as "rxxgh." This makes it harder to report & terminate these accounts. Moderators, please take note.</p>
         </div>
 
         <div id='definitions'></div>
     </div>
 
     <script>
+        // Generate floating particles dynamically
+        function createParticles() {
+            const particleContainer = document.querySelector(".particles");
+            for (let i = 0; i < 50; i++) {
+                let particle = document.createElement("div");
+                particle.className = "particle";
+                particle.style.left = `${Math.random() * 100}vw`;
+                particle.style.animationDuration = `${Math.random() * 5 + 3}s`;
+                particleContainer.appendChild(particle);
+            }
+        }
+        createParticles();
+
         const definitions = [
     { "term": "ERP", "synonyms": ["Sex", "Erotic Roleplay"], "definition": "Erotic role-play is an activity that predators engage in on the Roblox platform. It involes sexual intercourse on roblox or sexual roleplay in chat messages" },
     { "term": "Roblox Condo", "synonyms": ["Explicit Game", "ERP Place"], "definition": "A game designed for explicit roleplay, often violating Roblox's ToS." },
@@ -240,11 +274,8 @@
 
         function renderDefinitions(filter = '') {
             container.innerHTML = '';
-            definitions.forEach(({ term, definition, synonyms }, index) => {
-                if (
-                    term.toLowerCase().includes(filter.toLowerCase()) ||
-                    synonyms.some(syn => syn.toLowerCase().includes(filter.toLowerCase()))
-                ) {
+            definitions.forEach(({ term, definition }, index) => {
+                if (term.toLowerCase().includes(filter.toLowerCase())) {
                     const div = document.createElement('div');
                     div.classList.add('definition');
                     div.innerHTML = `<p class='term'>${index + 1}. ${term}</p><p>${definition}</p>`;
@@ -253,11 +284,9 @@
             });
         }
 
-        searchBar.addEventListener('input', (e) => {
-            renderDefinitions(e.target.value);
-        });
-
+        searchBar.addEventListener('input', (e) => renderDefinitions(e.target.value));
         renderDefinitions();
     </script>
 </body>
 </html>
+
