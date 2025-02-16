@@ -140,9 +140,19 @@ body {
             color: #ff6666;
             text-shadow: 0 0 15px red;
         }
+/* Hide the cursor everywhere */
+body {
+    cursor: none; 
+}
 
-        body {
-    cursor: none; /* Hides the default mouse cursor */
+/* Show a custom search icon when hovering over the search bar */
+#search-bar {
+    cursor: url('https://files.catbox.moe/19avxz.png'), auto; /* Replace with any search icon URL */
+}
+
+/* Hide the animated cursor when over the search bar */
+#search-bar:hover ~ .custom-cursor {
+    display: none;
 }
 
     </style>
