@@ -5,10 +5,10 @@
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     <title>Roblox ERP Dictionary</title>
     <style>
-        /* Full Red Theme */
+        /* Cool Animated Background */
         body {
             font-family: Arial, sans-serif;
-            background-color: #0a0000;
+            background: black;
             color: #ff5555;
             display: flex;
             justify-content: center;
@@ -17,6 +17,24 @@
             margin: 0;
             padding-top: 60px;
             overflow: hidden;
+            position: relative;
+        }
+
+        /* Background Animation */
+        body::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,0,0,0.2) 0%, rgba(0,0,0,1) 70%);
+            animation: backgroundMove 8s infinite linear;
+        }
+
+        @keyframes backgroundMove {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         /* Container */
@@ -34,6 +52,7 @@
             scrollbar-width: thin;
             scrollbar-color: red black;
             position: relative;
+            z-index: 1;
         }
 
         .container::-webkit-scrollbar {
@@ -63,19 +82,22 @@
 
         #search-bar {
             width: 80%;
-            padding: 10px;
+            padding: 15px;
             font-size: 1em;
             border: 2px solid #ff4444;
-            border-radius: 5px;
+            border-radius: 30px;
             background: #200000;
             color: #ff5555;
             outline: none;
             transition: all 0.3s ease-in-out;
+            text-align: center;
+            box-shadow: 0 0 15px red;
         }
 
         #search-bar:focus {
             background: #300000;
-            box-shadow: 0 0 10px red;
+            box-shadow: 0 0 25px red;
+            transform: scale(1.05);
         }
 
         /* Info Board */
@@ -86,7 +108,8 @@
             border: 2px solid #ff4444;
             text-shadow: 0 0 5px red;
             user-select: none;
-            margin-bottom: 20px; /* Space between info board and definitions */
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px red;
         }
 
         /* Definitions */
@@ -100,11 +123,12 @@
             text-shadow: 0 0 5px red;
             user-select: none;
             position: relative;
+            box-shadow: 0 0 10px red;
         }
 
         .definition:hover {
             background: #300000;
-            box-shadow: 0 0 15px red;
+            box-shadow: 0 0 20px red;
             transform: scale(1.02);
         }
 
@@ -219,3 +243,4 @@
     </script>
 </body>
 </html>
+
