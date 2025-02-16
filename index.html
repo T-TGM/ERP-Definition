@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html lang='en'>
+<html lang="en">
 <head>
-    <meta charset='UTF-8'>
-    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Roblox ERP Dictionary</title>
     <style>
-        /* 🔥 Epic Animated Background */
         @keyframes bgAnimation {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
@@ -26,29 +25,22 @@
             padding-top: 60px;
             overflow: hidden;
             position: relative;
+            cursor: none;
         }
 
-/* 🔥 Fully Red Custom Cursor (LOCKED & FIXED) */
-.custom-cursor {
-    position: fixed;
-    width: 12px;
-    height: 12px;
-    background: red;
-    border-radius: 50%;
-    pointer-events: none;
-    box-shadow: 0 0 8px red;
-    transform: translate(-50%, -50%);
-    z-index: 10000;
-    transition: transform 0.03s linear;
-}
+        /* Custom Cursor */
+        .custom-cursor {
+            position: fixed;
+            width: 12px;
+            height: 12px;
+            background: red;
+            border-radius: 50%;
+            pointer-events: none;
+            box-shadow: 0 0 8px red;
+            transform: translate(-50%, -50%);
+            z-index: 10000;
         }
 
-/* 🔥 Hide Default Cursor & Use Custom One */
-body {
-    cursor: none; /* Hides the original cursor */
-}
-
-        /* 🔥 Main Container */
         .container {
             width: 90%;
             max-width: 1000px;
@@ -62,22 +54,6 @@ body {
             border: 3px solid red;
             position: relative;
             z-index: 2;
-            transition: transform 0.3s ease-in-out;
-        }
-
-        .container:hover {
-            transform: scale(1.02);
-        }
-
-        /* 💨 Upgraded Scrollbar */
-        .container::-webkit-scrollbar {
-            width: 12px;
-        }
-
-        .container::-webkit-scrollbar-thumb {
-            background: linear-gradient(45deg, #ff0000, #660000);
-            border-radius: 6px;
-            box-shadow: 0 0 10px red;
         }
 
         h1 {
@@ -87,9 +63,10 @@ body {
             text-shadow: 0 0 20px red;
         }
 
-        /* 🎭 Interactive Search Bar */
+        /* Search Bar */
         .search-container {
             margin-bottom: 20px;
+            position: relative;
         }
 
         #search-bar {
@@ -103,35 +80,33 @@ body {
             outline: none;
             text-align: center;
             box-shadow: 0 0 20px red;
-            transition: all 0.2s ease-in-out;
+            transition: all 0.3s ease-in-out;
         }
 
         #search-bar:focus {
             background: #300000;
-            box-shadow: 0 0 35px red;
-            transform: scale(1.05);
+            box-shadow: 0 0 30px red;
         }
 
-        /* 💡 Definition Cards */
+        /* Definitions */
         .definition {
             margin-bottom: 20px;
             padding: 15px;
             background: rgba(32, 0, 0, 0.95);
             border-radius: 8px;
-            transition: all 0.2s ease-in-out;
             border: 3px solid #ff4444;
-            text-shadow: 0 0 5px red;
-            user-select: none;
             position: relative;
-            box-shadow: 0 0 20px red;
-            transform: scale(1);
+            transition: transform 0.2s, box-shadow 0.3s;
+            cursor: pointer;
         }
 
-        /* 🔥 Popout Effect Restored */
         .definition:hover {
-            background: rgba(48, 0, 0, 0.95);
-            box-shadow: 0 0 30px red;
             transform: scale(1.05);
+            box-shadow: 0 0 20px red;
+        }
+
+        .definition:active {
+            transform: scale(1);
         }
 
         .term {
@@ -140,42 +115,52 @@ body {
             color: #ff6666;
             text-shadow: 0 0 15px red;
         }
-/* Hide the cursor everywhere */
-body {
-    cursor: none; 
-}
 
-/* Show a custom search icon when hovering over the search bar */
-#search-bar {
-    cursor: url('roblox.png'), auto; /* Replace with any search icon URL */
-}
+        .synonyms {
+            font-style: italic;
+            color: #ff9999;
+        }
 
-/* Hide the animated cursor when over the search bar */
-#search-bar:hover ~ .custom-cursor {
-    display: none;
-}
+        /* Highlighting Search Matches */
+        .highlight {
+            background-color: yellow;
+            color: black;
+            padding: 0 4px;
+            border-radius: 4px;
+        }
 
+        /* Tooltip */
+        .tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #ff2222;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .definition:hover .tooltip {
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
 
-    <!-- 🖱️ Custom Cursor -->
     <div class="custom-cursor"></div>
 
-    <div class='container'>
+    <div class="container">
         <h1>Roblox ERP Dictionary</h1>
 
-        <!-- Search Bar -->
-        <div class='search-container'>
-            <input type='text' id='search-bar' placeholder='Search for a term...'>
+        <div class="search-container">
+            <input type="text" id="search-bar" placeholder="Search for a term..." onkeyup="filterDefinitions()" autofocus>
         </div>
 
-        <!-- Info Board -->
-        <div class='info-board'>
-            <p><strong>🚨 Important:</strong> ERP accounts are censoring words with X's or other letters, making reports harder. Moderators, please take note.</p>
-        </div>
-
-        <div id='definitions'></div>
+        <div id="definitions"></div>
     </div>
 
     <script>
@@ -242,47 +227,59 @@ body {
         const searchBar = document.getElementById('search-bar');
         const cursor = document.querySelector('.custom-cursor');
 
-        function renderDefinitions(filter = '') {
-            container.innerHTML = '';
-
-            definitions.forEach(({ term, definition, synonyms }) => {
-                if (term.toLowerCase().includes(filter.toLowerCase()) || synonyms.some(s => s.toLowerCase().includes(filter.toLowerCase()))) {
-                    const defElement = document.createElement('div');
-                    defElement.className = 'definition';
-                    defElement.innerHTML = `<p class='term'>${term}</p><p>${definition}</p>`;
-                    container.appendChild(defElement);
-                }
+        function loadDefinitions() {
+            container.innerHTML = "";
+            definitions.forEach(entry => {
+                const defDiv = document.createElement('div');
+                defDiv.className = 'definition';
+                defDiv.innerHTML = `
+                    <span class="tooltip">Click to Copy</span>
+                    <p class="term">${entry.term}</p>
+                    <p class="synonyms">Synonyms: ${entry.synonyms.join(', ')}</p>
+                    <p>${entry.definition}</p>
+                `;
+                defDiv.onclick = () => copyToClipboard(entry.term);
+                container.appendChild(defDiv);
             });
-
-            // Smooth fade-in effect
-            container.style.opacity = 0;
-            setTimeout(() => {
-                container.style.opacity = 1;
-            }, 100);
         }
 
-        searchBar.addEventListener('input', (e) => {
-            renderDefinitions(e.target.value);
+        function filterDefinitions() {
+            const query = searchBar.value.toLowerCase();
+            container.innerHTML = "";
+            definitions.forEach(entry => {
+                if (entry.term.toLowerCase().includes(query) || entry.synonyms.some(syn => syn.toLowerCase().includes(query))) {
+                    const defDiv = document.createElement('div');
+                    defDiv.className = 'definition';
+                    defDiv.innerHTML = `
+                        <span class="tooltip">Click to Copy</span>
+                        <p class="term">${highlightMatch(entry.term, query)}</p>
+                        <p class="synonyms">Synonyms: ${highlightMatch(entry.synonyms.join(', '), query)}</p>
+                        <p>${highlightMatch(entry.definition, query)}</p>
+                    `;
+                    defDiv.onclick = () => copyToClipboard(entry.term);
+                    container.appendChild(defDiv);
+                }
+            });
+        }
+
+        function highlightMatch(text, query) {
+            return text.replace(new RegExp(`(${query})`, 'gi'), '<span class="highlight">$1</span>');
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text);
+            alert(`Copied: ${text}`);
+        }
+
+        document.addEventListener("mousemove", (e) => {
+            cursor.style.left = `${e.clientX}px`;
+            cursor.style.top = `${e.clientY}px`;
         });
 
-// 🎯 Fix Cursor Offset & Make It Track Perfectly
-document.addEventListener('mousemove', (e) => {
-    requestAnimationFrame(() => {
-        cursor.style.left = `${e.clientX}px`;
-        cursor.style.top = `${e.clientY}px`;
-    });
-});
-
-        document.addEventListener('mouseenter', () => {
-            cursor.style.display = "block";
-        });
-
-        document.addEventListener('mouseleave', () => {
-            cursor.style.display = "none";
-        });
-
-        renderDefinitions();
+        loadDefinitions();
     </script>
+
 </body>
 </html>
+
 
