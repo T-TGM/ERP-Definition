@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     <title>Roblox ERP Dictionary</title>
     <style>
         @keyframes bgAnimation {
@@ -25,10 +25,10 @@
             padding-top: 60px;
             overflow: hidden;
             position: relative;
-            cursor: none;
+            cursor: none; /* 🔥 Hides all default cursors */
         }
 
-        /* Custom Cursor */
+        /* 🔥 Custom Red Cursor */
         .custom-cursor {
             position: fixed;
             width: 12px;
@@ -39,8 +39,10 @@
             box-shadow: 0 0 8px red;
             transform: translate(-50%, -50%);
             z-index: 10000;
+            transition: transform 0.03s linear;
         }
 
+        /* 🔥 Main Container */
         .container {
             width: 90%;
             max-width: 1000px;
@@ -54,6 +56,22 @@
             border: 3px solid red;
             position: relative;
             z-index: 2;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .container:hover {
+            transform: scale(1.02);
+        }
+
+        /* 💨 Upgraded Scrollbar */
+        .container::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        .container::-webkit-scrollbar-thumb {
+            background: linear-gradient(45deg, #ff0000, #660000);
+            border-radius: 6px;
+            box-shadow: 0 0 10px red;
         }
 
         h1 {
@@ -63,10 +81,9 @@
             text-shadow: 0 0 20px red;
         }
 
-        /* Search Bar */
+        /* 🎭 Interactive Search Bar */
         .search-container {
             margin-bottom: 20px;
-            position: relative;
         }
 
         #search-bar {
@@ -80,33 +97,36 @@
             outline: none;
             text-align: center;
             box-shadow: 0 0 20px red;
-            transition: all 0.3s ease-in-out;
+            transition: all 0.2s ease-in-out;
+            cursor: none; /* 🔥 Hides the cursor in the search bar */
         }
 
         #search-bar:focus {
             background: #300000;
-            box-shadow: 0 0 30px red;
+            box-shadow: 0 0 35px red;
+            transform: scale(1.05);
         }
 
-        /* Definitions */
+        /* 💡 Definition Cards */
         .definition {
             margin-bottom: 20px;
             padding: 15px;
             background: rgba(32, 0, 0, 0.95);
             border-radius: 8px;
+            transition: all 0.2s ease-in-out;
             border: 3px solid #ff4444;
+            text-shadow: 0 0 5px red;
+            user-select: none;
             position: relative;
-            transition: transform 0.2s, box-shadow 0.3s;
-            cursor: pointer;
-        }
-
-        .definition:hover {
-            transform: scale(1.05);
             box-shadow: 0 0 20px red;
+            transform: scale(1);
         }
 
-        .definition:active {
-            transform: scale(1);
+        /* 🔥 Popout Effect Restored */
+        .definition:hover {
+            background: rgba(48, 0, 0, 0.95);
+            box-shadow: 0 0 30px red;
+            transform: scale(1.05);
         }
 
         .term {
@@ -116,170 +136,143 @@
             text-shadow: 0 0 15px red;
         }
 
-        .synonyms {
-            font-style: italic;
-            color: #ff9999;
-        }
-
-        /* Highlighting Search Matches */
-        .highlight {
-            background-color: yellow;
-            color: black;
-            padding: 0 4px;
-            border-radius: 4px;
-        }
-
-        /* Tooltip */
-        .tooltip {
+        /* 🔢 Numbering on Definitions */
+        .definition-number {
             position: absolute;
-            bottom: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #ff2222;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 0.9em;
-            opacity: 0;
-            transition: opacity 0.3s;
+            top: 10px;
+            right: 15px;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #ff9999;
+            text-shadow: 0 0 15px red;
         }
 
-        .definition:hover .tooltip {
-            opacity: 1;
-        }
     </style>
 </head>
 <body>
 
+    <!-- 🖱️ Custom Cursor -->
     <div class="custom-cursor"></div>
 
-    <div class="container">
+    <div class='container'>
         <h1>Roblox ERP Dictionary</h1>
 
-        <div class="search-container">
-            <input type="text" id="search-bar" placeholder="Search for a term..." onkeyup="filterDefinitions()" autofocus>
+        <!-- Search Bar -->
+        <div class='search-container'>
+            <input type='text' id='search-bar' placeholder='Search for a term or number...'>
         </div>
 
-        <div id="definitions"></div>
+        <!-- Info Board -->
+        <div class='info-board'>
+            <p><strong>🚨 Important:</strong> ERP accounts are censoring words with X's or other letters, making reports harder. Moderators, please take note.</p>
+        </div>
+
+        <div id='definitions'></div>
     </div>
 
     <script>
         const definitions = [
-    { "term": "ERP", "synonyms": ["Sex", "Erotic Roleplay"], "definition": "Erotic role-play is an activity that predators engage in on the Roblox platform. It involes sexual intercourse on roblox or sexual roleplay in chat messages" },
-    { "term": "Roblox Condo", "synonyms": ["Explicit Game", "ERP Place"], "definition": "A game designed for explicit roleplay, often violating Roblox's ToS." },
-    { "term": "MDNI", "synonyms": ["Minors Do Not Interact"], "definition": "Short for 'Minors Do Not Interact,' often used in ERP communities." },
-    { "term": "Blue App", "synonyms": ["Discord Bypass"], "definition": "Bypassed way to say Discord, the icon is similar to a blue icon." },
-    { "term": "💿/📀", "synonyms": ["Disc Bypass", "Discord"], "definition": "Bypassed way to say Discord, disc is close to the word Discord which proves it." },
-    { "term": "❄️🐇", "synonyms": ["Snow Bunny Bypass"], "definition": "This is a bypassed way of saying Snowbunny. ERP users will use this to evade bans." },
-    { "term": "🐂/bull", "synonyms": ["Cuckold Bull", "Dominant Male"], "definition": "A sexually dominant male who cuckolds and humiliates husbands while servicing their wives. ERP users use the bull emoji to avoid bans." },
-    { "term": "Studio", "synonyms": ["Roblox Studio (ERP)"], "definition": "ERP users use Studio to create explicit games that are never published to evade moderation." },
-    { "term": "Toy", "synonyms": ["Boy Toy", "Toyfriend"], "definition": "A young man used as a 'toy' for pleasure without any serious relationship intention." },
-    { "term": "ACED", "synonyms": ["Ace of Spades"], "definition": "Short for 'Ace of Spades,' with 'spade' being a derogatory term for an African American. Used by ERP users." },
-    { "term": "Homewrecker", "synonyms": ["Cheater", "Marriage Breaker"], "definition": "A person responsible for breaking up relationships, commonly used among ERP users." },
-    { "term": "Hung / Hxng", "synonyms": ["Well-Endowed", "Large Genitals"], "definition": "Refers to a male with large genitals. 'Hxng' is a filter-bypass version." },
-    { "term": "Femby / Fem / Femboy", "synonyms": ["Feminine Male", "Submissive Male"], "definition": "A term referring to a biologically male individual who presents in a feminine manner. In ERP, this is often used to indicate submissiveness in sexual roleplay." },
-    { "term": "Dih", "synonyms": ["Dick in Hand"], "definition": "Acronym for 'dick in hand,' referring to something sexually arousing." },
-    { "term": "Good Time", "synonyms": ["Sex", "Intercourse"], "definition": "In ERP, this refers to engaging in sexual intercourse." },
-    { "term": "Personal Trainer", "synonyms": ["Erotic Trainer", "Roleplay Coach"], "definition": "A term used in ERP to disguise roleplay with physical contact or suggestive 'training' sessions." },
-    { "term": "Cow", "synonyms": ["Milking", "Lactation Fetish"], "definition": "A bypass term used in ERP to refer to 'milking' or lactation fetishes." },
-    { "term": "Free Use", "synonyms": ["Always Available"], "definition": "A term used in ERP communities to describe someone as 'always available' for explicit activities." },
-    { "term": "Tight", "synonyms": ["Virgin", "Snug", "Unstretched", "Fresh", "Compact"], "definition": "A term commonly used in ERP to describe female genitals in an explicit manner." },
-    { "term": "Dom", "synonyms": ["Dominant", "Master"], "definition": "A dominant role in BDSM and ERP, violating Roblox's ToS." },
-    { "term": "Sub", "synonyms": ["Submissive", "Bottom"], "definition": "A submissive role in BDSM and ERP, often indicating inappropriate behavior." },
-    { "term": "Tyrone", "synonyms": ["Stereotypical Black Male", "Bull"], "definition": "A stereotypical African American name often used in ERP to depict a dominant Black male in explicit scenarios." },
-    { "term": "HMU", "synonyms": ["Hit Me Up", "ERP Invite"], "definition": "In an ERP context, this phrase is often used to invite others to engage in explicit roleplay or inappropriate conversations." },
-    { "term": "BBC", "synonyms": ["Big Black Cock", "Black Wood"], "definition": "Short for 'Big Black Cock.' This term is widely used in explicit adult content and fetish communities." },
-    { "term": "Pounder", "synonyms": ["Aggressive Lover"], "definition": "In an ERP context, 'pounder' is often used to describe someone who aggressively engages in sexual activity." },
-    { "term": "Thug", "synonyms": ["Rough ERP"], "definition": "In ERP contexts, 'thug' is used to describe rough or aggressive sexual activity." },
-    { "term": "Black Pole", "synonyms": ["BBC", "Black Wood"], "definition": "A highly suggestive term referring to a Black male’s genitals." },
-    { "term": "Punisher", "synonyms": ["Dominant Aggressor"], "definition": "A term used in ERP to imply dominance and rough sexual activity." },
-    { "term": "Destroyer", "synonyms": ["Rough Lover"], "definition": "In ERP contexts, 'destroyer' refers to extreme and explicit sexual acts." },
-    { "term": "Edge", "synonyms": ["Edging", "Orgasm Control"], "definition": "To edge is a masturbation technique where you bring yourself to the brink of orgasm but don’t finish." },
-    { "term": "Goon", "synonyms": ["Masturbation Obsession"], "definition": "To masturbate, especially in an obsessive or energetic way." },
-    { "term": "Bunny", "synonyms": ["Snow Bunny"], "definition": "Another way of saying Snowbunny." },
-    { "term": "♠️", "synonyms": ["Spade", "Racial Fetish"], "definition": "This symbol is often used in ERP communities to reference racial fetishization." },
-    { "term": "Breeder", "synonyms": ["Impregnation Roleplay"], "definition": "A term used in ERP to refer to someone who is sexually dominant and engages in impregnation roleplay." },
-    { "term": "Yoga Instructor", "synonyms": ["ERP Trainer"], "definition": "A disguised ERP term that often refers to someone taking a dominant role in explicit roleplay scenarios." },
-    { "term": "Snowplower", "synonyms": ["Interracial Roleplay"], "definition": "A term used in ERP communities to refer to someone who seeks out sexual interactions with white individuals." },
-    { "term": "Whitecake", "synonyms": ["Interracial Fetish"], "definition": "A fetishizing term used in ERP to describe a sexual preference for white individuals." },  
-    { "term": "Huge Man", "synonyms": ["Big Man", "Large Man", "Giant", "Hxge Man", "HgeMan", "Gigantic"], "definition": "A term used in ERP contexts to imply someone with an exceptionally large penis. Often seen in usernames or bios to signal sexual dominance, violating Roblox’s Terms of Service." },  
-    { "term": "Trade", "synonyms": ["Pic Trade", "Nude Swap", "N*de Trade", "Exch", "Pxt", "Xchange", "Swap Pics"], "definition": "A term used in ERP to refer to exchanging explicit images, often implying the trading of nudes. This is a serious violation of Roblox’s safety policies and can involve illegal activity." },  
-    { "term": "Black Wood", "synonyms": ["B. Wood", "BlkWood", "Ebony Log", "Dark Timber", "Shadow Wood"], "definition": "A fetishizing term referring to a Black man's genitals, similar to 'BBC' but more discreet. Its use in usernames or bios is a clear indicator of ERP behavior." },  
-    { "term": "Gym Trainer", "synonyms": ["Fitness Coach", "Gym Dom", "Personal Trainer", "P.T.", "Workout Dom", "Gym Roleplay"], "definition": "A term used in ERP roleplay to disguise sexual scenarios under the guise of 'training' or 'personal coaching.' This often involves dominant/submissive dynamics, making it inappropriate for Roblox." },  
-    { "term": "BWC (Big White Cock)", "synonyms": ["White Wood", "W.C.", "Pale Pole", "Snow Log", "Frost Timber"], "definition": "A term used in explicit sexual content to fetishize white men. Its use in Roblox bios or usernames indicates ERP activity and is a violation of the platform’s rules." },  
-    { "term": "BMC (Big Mexican Cock)", "synonyms": ["M.C.", "Brown Timber", "Latin Log", "MexWood", "Spicy Log"], "definition": "A racialized and explicit term used in ERP to describe a Mexican man's genitals. This violates Roblox’s Terms of Service due to its fetishistic and inappropriate nature." },  
-    { "term": "Rough", "synonyms": ["Hard", "Aggressive", "Savage", "R0ugh", "Roughplay", "Roughrider"], "definition": "In ERP, this term refers to aggressive or dominant sexual activity. Its use in usernames, bios, or chat suggests ERP participation and is a direct violation of Roblox’s rules." },  
-    { "term": "Plump", "synonyms": ["Thick", "Chubby", "Voluptuous", "Plush", "Soft", "Juicy"], "definition": "A term often used in ERP to describe someone who is curvy or thick, usually in a sexualized manner." },  
-    { "term": "Kitty Killer", "synonyms": ["P*ssy Slayer", "Kitty Slayer", "Cat Killer", "Feline Destroyer", "Claw Breaker"], "definition": "The word 'kitty' is a euphemism for 'pussy.' 'Kitty Killer' is a term used in ERP to refer to rough or aggressive sexual activity, violating Roblox’s policies." },  
-    { "term": "Sneaky Link", "synonyms": ["Secret Fling", "S.Link", "Hush Meetup", "Private Affair", "Lowkey"], "definition": "A term used to describe a secret sexual partner. Often referenced in ERP and inappropriate for Roblox." },  
-    { "term": "Horse", "synonyms": ["Stallion", "Mustang", "War Horse", "Colt", "Equine", "Bronco"], "definition": "In ERP, 'horse' is often used to imply someone is 'hung like a horse,' referring to a well-endowed man. This sexualized usage makes it a clear violation of Roblox’s rules." },  
-    { "term": "Stallion", "synonyms": ["Stud", "Warhorse", "Alpha Horse", "Mustang", "Charger"], "definition": "In ERP, 'stallion' is used to describe a man who is 'hung like a stallion,' implying large genitalia. This explicit connotation makes it inappropriate for Roblox." },  
-    { "term": "Wet", "synonyms": ["Dripping", "Soaked", "Flooded", "Soggy", "W3t", "Drenched"], "definition": "Commonly used in ERP to describe arousal, especially in reference to female genitalia. This makes it an explicit term violating Roblox’s ToS." },  
-    { "term": "QOS (Queen of Spades)", "synonyms": ["Queen ♠️", "Spade Queen", "Ebony Enthusiast", "Black-Only", "Q.Spade"], "definition": "A fetish term referring to a white woman who exclusively seeks Black men for sexual relationships. This term is heavily tied to racial fetishization and violates Roblox’s rules." },  
-    { "term": "Nyash", "synonyms": ["Yash", "Booty", "Bum", "Cheeks", "Azz", "Thickums"], "definition": "A slang term for buttocks, often used in a sexualized manner in ERP contexts, making it inappropriate for Roblox." },  
-    { "term": "Scat", "synonyms": ["Copro", "Brown Play", "Messy", "Doodoo Kink", "S.K."], "definition": "Refers to a fetish involving feces, which is an extreme form of ERP. Any mention of this is a major violation of Roblox’s ToS." },  
-    { "term": "Dump", "synonyms": ["Load Drop", "Spill Zone", "Seed Collector", "Dmp", "Gutter"], "definition": "In an ERP context, 'dump' can be short for 'cumdump,' referring to someone who allows multiple partners to ejaculate inside them without protection. This is an explicit and extreme violation of Roblox’s rules." },  
-    { "term": "Cumdump", "synonyms": ["Seed Tank", "Sperm Vault", "Receptacle", "Dumptruck", "C.Dump"], "definition": "A promiscuous woman who is not choosy about her sexual partners and who allows most or all men who she has sex with to cum inside of her without protection. This term is explicit and violates Roblox’s policies on sexual content." },  
-    { "term": "Blvcksshota", "synonyms": ["Backshot", "Bkshot", "Bcksh0t", "Bcksh0ta", "Bckshoota", "Bkshoota", "Bksh0ta"], "definition": "A bypassed version of 'Backshot,' a sexual position commonly referenced in ERP. Any use of this or similar bypasses violates Roblox’s ToS." }
+            { "number": 1, "term": "ERP", "synonyms": ["Sex", "Erotic Roleplay"], "definition": "Erotic role-play is an activity that predators engage in on the Roblox platform. It involves sexual intercourse on Roblox or sexual roleplay in chat messages." },
+            { "number": 2, "term": "Roblox Condo", "synonyms": ["Explicit Game", "ERP Place"], "definition": "A game designed for explicit roleplay, often violating Roblox's ToS." },
+            { "number": 3, "term": "MDNI", "synonyms": ["Minors DNI", "Adult Zone"], "definition": "A tag meaning 'Minors Do Not Interact,' often used by adults engaging in inappropriate activity." },
+            { "number": 4, "term": "Blue App", "synonyms": ["Discord Bypass"], "definition": "Bypassed way to say Discord, the icon is similar to a blue icon." },
+            { "number": 5, "term": "💿/📀", "synonyms": ["Disc Bypass", "Discord"], "definition": "Bypassed way to say Discord, disc is close to the word Discord which proves it." },
+            { "number": 6, "term": "❄️🐇", "synonyms": ["Snow Bunny Bypass"], "definition": "This is a bypassed way of saying Snowbunny. ERP users will use this to evade bans." },
+            { "number": 7, "term": "🐂/bull", "synonyms": ["Cuckold Bull", "Dominant Male"], "definition": "A sexually dominant male who cuckolds and humiliates husbands while servicing their wives. ERP users use the bull emoji to avoid bans." },
+            { "number": 8, "term": "Studio", "synonyms": ["Roblox Studio (ERP)"], "definition": "ERP users use Studio to create explicit games that are never published to evade moderation." },
+            { "number": 9, "term": "Toy", "synonyms": ["Boy Toy", "Toyfriend"], "definition": "A young man used as a 'toy' for pleasure without any serious relationship intention." },
+            { "number": 10, "term": "ACED", "synonyms": ["Ace of Spades"], "definition": "Short for 'Ace of Spades,' with 'spade' being a derogatory term for an African American. Used by ERP users." },
+            { "number": 11, "term": "Homewrecker", "synonyms": ["Cheater", "Marriage Breaker"], "definition": "A person responsible for breaking up relationships, commonly used among ERP users." },
+            { "number": 12, "term": "Hung / Hxng", "synonyms": ["Well-Endowed", "Large Genitals"], "definition": "Refers to a male with large genitals. 'Hxng' is a filter-bypass version." },
+            { "number": 13, "term": "Femby / Fem / Femboy", "synonyms": ["Feminine Male", "Submissive Male"], "definition": "A term referring to a biologically male individual who presents in a feminine manner. In ERP, this is often used to indicate submissiveness in sexual roleplay." },
+            { "number": 14, "term": "Dih", "synonyms": ["Dick in Hand"], "definition": "Acronym for 'dick in hand,' referring to something sexually arousing." },
+            { "number": 15, "term": "Good Time", "synonyms": ["Sex", "Intercourse"], "definition": "In ERP, this refers to engaging in sexual intercourse." },
+            { "number": 16, "term": "Personal Trainer", "synonyms": ["Erotic Trainer", "Roleplay Coach"], "definition": "A term used in ERP to disguise roleplay with physical contact or suggestive 'training' sessions." },
+            { "number": 17, "term": "Cow", "synonyms": ["Milking", "Lactation Fetish"], "definition": "A bypass term used in ERP to refer to 'milking' or lactation fetishes." },
+            { "number": 18, "term": "Free Use", "synonyms": ["Always Available"], "definition": "A term used in ERP communities to describe someone as 'always available' for explicit activities." },
+            { "number": 19, "term": "Tight", "synonyms": ["Virgin", "Snug", "Unstretched", "Fresh", "Compact"], "definition": "A term commonly used in ERP to describe female genitals in an explicit manner." },
+            { "number": 20, "term": "Dom", "synonyms": ["Dominant", "Master"], "definition": "A dominant role in BDSM and ERP, violating Roblox's ToS." },
+            { "number": 21, "term": "Sub", "synonyms": ["Submissive", "Bottom"], "definition": "A submissive role in BDSM and ERP, often indicating inappropriate behavior." },
+            { "number": 22, "term": "Tyrone", "synonyms": ["Stereotypical Black Male", "Bull"], "definition": "A stereotypical African American name often used in ERP to depict a dominant Black male in explicit scenarios." },
+            { "number": 23, "term": "HMU", "synonyms": ["Hit Me Up", "ERP Invite"], "definition": "In an ERP context, this phrase is often used to invite others to engage in explicit roleplay or inappropriate conversations." },
+            { "number": 24, "term": "BBC", "synonyms": ["Big Black Cock", "Black Wood"], "definition": "Short for 'Big Black Cock.' This term is widely used in explicit adult content and fetish communities." },
+            { "number": 25, "term": "Pounder", "synonyms": ["Aggressive Lover"], "definition": "In an ERP context, 'pounder' is often used to describe someone who aggressively engages in sexual activity." },
+            { "number": 26, "term": "Thug", "synonyms": ["Rough ERP"], "definition": "In ERP contexts, 'thug' is used to describe rough or aggressive sexual activity." },
+            { "number": 27, "term": "Black Pole", "synonyms": ["BBC", "Black Wood"], "definition": "A highly suggestive term referring to a Black male’s genitals." },
+            { "number": 28, "term": "Punisher", "synonyms": ["Dominant Aggressor"], "definition": "A term used in ERP to imply dominance and rough sexual activity." },
+            { "number": 29, "term": "Destroyer", "synonyms": ["Rough Lover"], "definition": "In ERP contexts, 'destroyer' refers to extreme and explicit sexual acts." },
+            { "number": 30, "term": "Edge", "synonyms": ["Edging", "Orgasm Control"], "definition": "To edge is a masturbation technique where you bring yourself to the brink of orgasm but don’t finish." },
+            { "number": 31, "term": "Goon", "synonyms": ["Masturbation Obsession"], "definition": "To masturbate, especially in an obsessive or energetic way." },
+            { "number": 32, "term": "Bunny", "synonyms": ["Snow Bunny"], "definition": "Another way of saying Snowbunny." },
+            { "number": 33, "term": "♠️", "synonyms": ["Spade", "Racial Fetish"], "definition": "This symbol is often used in ERP communities to reference racial fetishization." },
+            { "number": 34, "term": "Breeder", "synonyms": ["Impregnation Roleplay"], "definition": "A term used in ERP to refer to someone who is sexually dominant and engages in impregnation roleplay." },
+            { "number": 35, "term": "Yoga Instructor", "synonyms": ["ERP Trainer"], "definition": "A disguised ERP term that often refers to someone taking a dominant role in explicit roleplay scenarios." },
+            { "number": 36, "term": "Snowplower", "synonyms": ["Interracial Roleplay"], "definition": "A term used in ERP communities to refer to someone who seeks out sexual interactions with white individuals." },
+            { "number": 37, "term": "Whitecake", "synonyms": ["Interracial Fetish"], "definition": "A fetishizing term used in ERP to describe a sexual preference for white individuals." },  
+            { "number": 38, "term": "Huge Man", "synonyms": ["Big Man", "Large Man", "Giant", "Hxge Man", "HgeMan", "Gigantic"], "definition": "A term used in ERP contexts to imply someone with an exceptionally large penis. Often seen in usernames or bios to signal sexual dominance, violating Roblox’s Terms of Service." },  
+            { "number": 39, "term": "Trade", "synonyms": ["Pic Trade", "Nude Swap", "N*de Trade", "Exch", "Pxt", "Xchange", "Swap Pics"], "definition": "A term used in ERP to refer to exchanging explicit images, often implying the trading of nudes. This is a serious violation of Roblox’s safety policies and can involve illegal activity." },   
+            { "number": 40, "term": "Black Wood", "synonyms": ["B. Wood", "BlkWood", "Ebony Log", "Dark Timber", "Shadow Wood"], "definition": "A fetishizing term referring to a Black man's genitals, similar to 'BBC' but more discreet. Its use in usernames or bios is a clear indicator of ERP behavior." },  
+            { "number": 41, "term": "Gym Trainer", "synonyms": ["Fitness Coach", "Gym Dom", "Personal Trainer", "P.T.", "Workout Dom", "Gym Roleplay"], "definition": "A term used in ERP roleplay to disguise sexual scenarios under the guise of 'training' or 'personal coaching.' This often involves dominant/submissive dynamics, making it inappropriate for Roblox." },  
+            { "number": 42, "term": "BWC (Big White Cock)", "synonyms": ["White Wood", "W.C.", "Pale Pole", "Snow Log", "Frost Timber"], "definition": "A term used in explicit sexual content to fetishize white men. Its use in Roblox bios or usernames indicates ERP activity and is a violation of the platform’s rules." },  
+            { "number": 43, "term": "BMC (Big Mexican Cock)", "synonyms": ["M.C.", "Brown Timber", "Latin Log", "MexWood", "Spicy Log"], "definition": "A racialized and explicit term used in ERP to describe a Mexican man's genitals. This violates Roblox’s Terms of Service due to its fetishistic and inappropriate nature." },  
+            { "number": 44, "term": "Rough", "synonyms": ["Hard", "Aggressive", "Savage", "R0ugh", "Roughplay", "Roughrider"], "definition": "In ERP, this term refers to aggressive or dominant sexual activity. Its use in usernames, bios, or chat suggests ERP participation and is a direct violation of Roblox’s rules." },  
+            { "number": 45, "term": "Plump", "synonyms": ["Thick", "Chubby", "Voluptuous", "Plush", "Soft", "Juicy"], "definition": "A term often used in ERP to describe someone who is curvy or thick, usually in a sexualized manner." },  
+            { "number": 46, "term": "Kitty Killer", "synonyms": ["P*ssy Slayer", "Kitty Slayer", "Cat Killer", "Feline Destroyer", "Claw Breaker"], "definition": "The word 'kitty' is a euphemism for 'pussy.' 'Kitty Killer' is a term used in ERP to refer to rough or aggressive sexual activity, violating Roblox’s policies." },  
+            { "number": 47, "term": "Sneaky Link", "synonyms": ["Secret Fling", "S.Link", "Hush Meetup", "Private Affair", "Lowkey"], "definition": "A term used to describe a secret sexual partner. Often referenced in ERP and inappropriate for Roblox." },  
+            { "number": 48, "term": "Horse", "synonyms": ["Stallion", "Mustang", "War Horse", "Colt", "Equine", "Bronco"], "definition": "In ERP, 'horse' is often used to imply someone is 'hung like a horse,' referring to a well-endowed man. This sexualized usage makes it a clear violation of Roblox’s rules." },  
+            { "number": 49, "term": "Stallion", "synonyms": ["Stud", "Warhorse", "Alpha Horse", "Mustang", "Charger"], "definition": "In ERP, 'stallion' is used to describe a man who is 'hung like a stallion,' implying large genitalia. This explicit connotation makes it inappropriate for Roblox." },  
+            { "number": 50, "term": "Wet", "synonyms": ["Dripping", "Soaked", "Flooded", "Soggy", "W3t", "Drenched"], "definition": "Commonly used in ERP to describe arousal, especially in reference to female genitalia. This makes it an explicit term violating Roblox’s ToS." },  
+            { "number": 51, "term": "QOS (Queen of Spades)", "synonyms": ["Queen ♠️", "Spade Queen", "Ebony Enthusiast", "Black-Only", "Q.Spade"], "definition": "A fetish term referring to a white woman who exclusively seeks Black men for sexual relationships. This term is heavily tied to racial fetishization and violates Roblox’s rules." },  
+            { "number": 52, "term": "Nyash", "synonyms": ["Yash", "Booty", "Bum", "Cheeks", "Azz", "Thickums"], "definition": "A slang term for buttocks, often used in a sexualized manner in ERP contexts, making it inappropriate for Roblox." },  
+            { "number": 53, "term": "Scat", "synonyms": ["Copro", "Brown Play", "Messy", "Doodoo Kink", "S.K."], "definition": "Refers to a fetish involving feces, which is an extreme form of ERP. Any mention of this is a major violation of Roblox’s ToS." },  
+            { "number": 54, "term": "Dump", "synonyms": ["Load Drop", "Spill Zone", "Seed Collector", "Dmp", "Gutter"], "definition": "In an ERP context, 'dump' can be short for 'cumdump,' referring to someone who allows multiple partners to ejaculate inside them without protection. This is an explicit and extreme violation of Roblox’s rules." },  
+            { "number": 55, "term": "Cumdump", "synonyms": ["Seed Tank", "Sperm Vault", "Receptacle", "Dumptruck", "C.Dump"], "definition": "A promiscuous woman who is not choosy about her sexual partners and who allows most or all men who she has sex with to cum inside of her without protection. This term is explicit and violates Roblox’s policies on sexual content." },  
+            { "number": 56, "term": "Blvcksshota", "synonyms": ["Backshot", "Bkshot", "Bcksh0t", "Bcksh0ta", "Bckshoota", "Bkshoota", "Bksh0ta"], "definition": "A bypassed version of 'Backshot,' a sexual position commonly referenced in ERP. Any use of this or similar bypasses violates Roblox’s ToS." }
         ];
 
         const container = document.getElementById('definitions');
         const searchBar = document.getElementById('search-bar');
         const cursor = document.querySelector('.custom-cursor');
 
-        function loadDefinitions() {
-            container.innerHTML = "";
-            definitions.forEach(entry => {
-                const defDiv = document.createElement('div');
-                defDiv.className = 'definition';
-                defDiv.innerHTML = `
-                    <span class="tooltip">Click to Copy</span>
-                    <p class="term">${entry.term}</p>
-                    <p class="synonyms">Synonyms: ${entry.synonyms.join(', ')}</p>
-                    <p>${entry.definition}</p>
-                `;
-                defDiv.onclick = () => copyToClipboard(entry.term);
-                container.appendChild(defDiv);
-            });
-        }
+        function renderDefinitions(filter = '') {
+            container.innerHTML = '';
 
-        function filterDefinitions() {
-            const query = searchBar.value.toLowerCase();
-            container.innerHTML = "";
-            definitions.forEach(entry => {
-                if (entry.term.toLowerCase().includes(query) || entry.synonyms.some(syn => syn.toLowerCase().includes(query))) {
-                    const defDiv = document.createElement('div');
-                    defDiv.className = 'definition';
-                    defDiv.innerHTML = `
-                        <span class="tooltip">Click to Copy</span>
-                        <p class="term">${highlightMatch(entry.term, query)}</p>
-                        <p class="synonyms">Synonyms: ${highlightMatch(entry.synonyms.join(', '), query)}</p>
-                        <p>${highlightMatch(entry.definition, query)}</p>
+            definitions.forEach(({ number, term, definition, synonyms }) => {
+                if (
+                    term.toLowerCase().includes(filter.toLowerCase()) ||
+                    synonyms.some(s => s.toLowerCase().includes(filter.toLowerCase())) ||
+                    number.toString().includes(filter)
+                ) {
+                    const defElement = document.createElement('div');
+                    defElement.className = 'definition';
+                    defElement.innerHTML = `
+                        <span class="definition-number">#${number}</span>
+                        <p class='term'>${term}</p>
+                        <p>${definition}</p>
                     `;
-                    defDiv.onclick = () => copyToClipboard(entry.term);
-                    container.appendChild(defDiv);
+                    container.appendChild(defElement);
                 }
             });
+
+            container.style.opacity = 0;
+            setTimeout(() => {
+                container.style.opacity = 1;
+            }, 100);
         }
 
-        function highlightMatch(text, query) {
-            return text.replace(new RegExp(`(${query})`, 'gi'), '<span class="highlight">$1</span>');
-        }
-
-        function copyToClipboard(text) {
-            navigator.clipboard.writeText(text);
-            alert(`Copied: ${text}`);
-        }
-
-        document.addEventListener("mousemove", (e) => {
-            cursor.style.left = `${e.clientX}px`;
-            cursor.style.top = `${e.clientY}px`;
+        searchBar.addEventListener('input', (e) => {
+            renderDefinitions(e.target.value);
         });
 
-        loadDefinitions();
-    </script>
+        document.addEventListener('mousemove', (e) => {
+            requestAnimationFrame(() => {
+                cursor.style.left = `${e.clientX}px`;
+                cursor.style.top = `${e.clientY}px`;
+            });
+        });
 
+        renderDefinitions();
+    </script>
 </body>
 </html>
-
 
