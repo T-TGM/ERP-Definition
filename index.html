@@ -25,10 +25,9 @@
             padding-top: 60px;
             overflow: hidden;
             position: relative;
-            cursor: none; /* 🔥 Hides all default cursors */
+            cursor: none;
         }
 
-        /* 🔥 Custom Red Cursor */
         .custom-cursor {
             position: fixed;
             width: 12px;
@@ -42,7 +41,6 @@
             transition: transform 0.03s linear;
         }
 
-        /* 🔥 Main Container */
         .container {
             width: 90%;
             max-width: 1000px;
@@ -63,7 +61,6 @@
             transform: scale(1.02);
         }
 
-        /* 💨 Upgraded Scrollbar */
         .container::-webkit-scrollbar {
             width: 12px;
         }
@@ -81,7 +78,6 @@
             text-shadow: 0 0 20px red;
         }
 
-        /* 🎭 Interactive Search Bar */
         .search-container {
             margin-bottom: 20px;
         }
@@ -98,7 +94,7 @@
             text-align: center;
             box-shadow: 0 0 20px red;
             transition: all 0.2s ease-in-out;
-            cursor: none; /* 🔥 Hides the cursor in the search bar */
+            cursor: none;
         }
 
         #search-bar:focus {
@@ -107,7 +103,6 @@
             transform: scale(1.05);
         }
 
-        /* 💡 Definition Cards */
         .definition {
             margin-bottom: 20px;
             padding: 15px;
@@ -116,14 +111,13 @@
             transition: all 0.3s ease-in-out;
             border: 3px solid #ff4444;
             text-shadow: 0 0 5px red;
-            user-select: text; /* 🔥 Allows text to be copied */
+            user-select: text;
             position: relative;
             box-shadow: 0 0 20px red;
             transform: scale(1);
             opacity: 1;
         }
 
-        /* 🔥 Popout Effect Restored */
         .definition:hover {
             background: rgba(48, 0, 0, 0.95);
             box-shadow: 0 0 30px red;
@@ -137,7 +131,6 @@
             text-shadow: 0 0 15px red;
         }
 
-        /* 🔢 Numbering on Definitions */
         .definition-number {
             position: absolute;
             top: 10px;
@@ -148,14 +141,12 @@
             text-shadow: 0 0 15px red;
         }
 
-        /* ⬇️ Smooth Hiding Animation */
         .hidden {
             opacity: 0;
             transform: translateY(-10px);
             transition: all 0.3s ease-in-out;
         }
 
-        /* 👤 TGM Footer */
         .footer {
             font-size: 1.1em;
             color: #ff6666;
@@ -164,43 +155,25 @@
             margin-top: 15px;
             text-shadow: 0 0 15px red;
         }
-
-        /* 🔗 Clickable Links */
-        .definition a {
-            color: #ff7777;
-            text-decoration: underline;
-            font-weight: bold;
-            text-shadow: 0 0 10px red;
-        }
-
-        .definition a:hover {
-            color: #ffaaaa;
-            text-shadow: 0 0 20px red;
-        }
-
     </style>
 </head>
 <body>
 
-    <!-- 🖱️ Custom Cursor -->
     <div class="custom-cursor"></div>
 
     <div class='container'>
         <h1>Roblox ERP Dictionary</h1>
 
-        <!-- Search Bar -->
         <div class='search-container'>
             <input type='text' id='search-bar' placeholder='Search for a term or number...'>
         </div>
 
-        <!-- Info Board -->
         <div class='info-board'>
-            <p><strong>🚨 Important:</strong> ERP Accounts are censoring the inappropriate Words/Phrases with letters like X. eg rough censored is rxxgh. PLEASE BEWARE OF THIS DSA MODERATORS.</p>
+            <p><strong>🚨 Important:</strong> ERP Accounts are censoring inappropriate words with letters like X. Example: 'rough' censored as 'rxxgh'. BEWARE, DSA MODERATORS.</p>
         </div>
 
         <div id='definitions'></div>
 
-        <!-- 👤 Made by TGM -->
         <div class="footer">Made by TGM</div>
     </div>
 
@@ -279,8 +252,9 @@
             { "number": 71, "term": "Mommy", "synonyms": ["Mom", "Dommy Mommy", "Mother"], "definition": "A term used in incest-based ERP roleplay, often referring to a maternal figure in a sexual context. This is highly inappropriate and a blatant violation of Roblox’s ToS."},
             { "number": 72, "term": "Daddy", "synonyms": ["Dad", "Daddi", "Dadzaddy"], "definition": "A term used in incest-based ERP scenarios to refer to a paternal figure in a sexual context. This violates Roblox’s ToS and is linked to highly inappropriate roleplay."},
             { "number": 73, "term": "Morse Code", "synonyms": ["•-", "Bypassed Chat", "Dot Dash"], "definition": "A method used by ERP participants to bypass Roblox's chat filters by encoding inappropriate messages in Morse code. This allows users to communicate explicit content while avoiding detection. Online translators can be used to decode messages: https://morsecode.world/international/translator.html"}, 
-            { "number": 74, "term": "Caesar Cipher", "synonyms": ["Shift Cipher", "Bypass Code", "Encrypted Text"], "definition": "A basic encryption technique used by ERP users to disguise explicit messages by shifting letters in the alphabet. This method helps evade Roblox's chat moderation. Decoding tools can be found here: https://cryptii.com/pipes/caesar-cipher"} 
+            { "number": 74, "term": "Caesar Cipher", "synonyms": ["Shift Cipher", "Bypass Code", "Encrypted Text"], "definition": "A basic encryption technique used by ERP users to disguise explicit messages by shifting letters in the alphabet. This method helps evade Roblox's chat moderation. Decoding tools can be found here: https://cryptii.com/pipes/caesar-cipher"}
         ];
+
         const container = document.getElementById('definitions');
         const searchBar = document.getElementById('search-bar');
         const cursor = document.querySelector('.custom-cursor');
@@ -288,26 +262,37 @@
         function renderDefinitions(filter = '') {
             container.innerHTML = '';
 
-            definitions.forEach(({ number, term, definition, synonyms }) => {
-                if (term.toLowerCase().includes(filter.toLowerCase()) || synonyms.some(s => s.toLowerCase().includes(filter.toLowerCase())) || number.toString().includes(filter)) {
+            definitions.forEach(({ number, term, definition, synonyms, link }) => {
+                if (
+                    term.toLowerCase().includes(filter.toLowerCase()) ||
+                    synonyms.some(s => s.toLowerCase().includes(filter.toLowerCase())) ||
+                    number.toString().includes(filter)
+                ) {
                     const defElement = document.createElement('div');
                     defElement.className = 'definition hidden';
-                    defElement.innerHTML = `<span class="definition-number">#${number}</span><p class='term'>${term}</p><p>${definition}</p>`;
+                    defElement.innerHTML = `
+                        <span class="definition-number">#${number}</span>
+                        <p class='term'>${term}</p>
+                        <p>${definition} <br><a href="${link}" target="_blank">🔗 Click Here</a></p>
+                    `;
                     container.appendChild(defElement);
                     setTimeout(() => defElement.classList.remove('hidden'), 50);
                 }
             });
         }
 
-        searchBar.addEventListener('input', (e) => renderDefinitions(e.target.value));
+        searchBar.addEventListener('input', (e) => {
+            renderDefinitions(e.target.value);
+        });
 
-        document.addEventListener('mousemove', (e) => requestAnimationFrame(() => { cursor.style.left = `${e.clientX}px`; cursor.style.top = `${e.clientY}px`; }));
+        document.addEventListener('mousemove', (e) => {
+            requestAnimationFrame(() => {
+                cursor.style.left = `${e.clientX}px`;
+                cursor.style.top = `${e.clientY}px`;
+            });
+        });
 
         renderDefinitions();
     </script>
 </body>
 </html>
-
-</body>
-</html>
-
