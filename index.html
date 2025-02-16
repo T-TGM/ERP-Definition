@@ -6,9 +6,17 @@
     <title>Roblox ERP Dictionary</title>
     <style>
         /* 🔥 Epic Animated Background */
+        @keyframes bgAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
         body {
             font-family: Arial, sans-serif;
-            background: black;
+            background: linear-gradient(-45deg, #200000, #400000, #200000);
+            background-size: 300% 300%;
+            animation: bgAnimation 10s infinite ease-in-out;
             color: #ff5555;
             display: flex;
             justify-content: center;
@@ -23,14 +31,13 @@
         /* 🔥 Fully Red Custom Cursor (FIXED) */
         .custom-cursor {
             position: fixed;
-            width: 15px;
-            height: 15px;
+            width: 12px;
+            height: 12px;
             background: red;
             border-radius: 50%;
             pointer-events: none;
-            transform: translate(-50%, -50%);
-            transition: transform 0.05s ease-out;
-            box-shadow: 0 0 10px red;
+            box-shadow: 0 0 8px red;
+            transition: transform 0.03s linear;
             z-index: 10000;
         }
 
@@ -115,11 +122,10 @@
             user-select: none;
             position: relative;
             box-shadow: 0 0 20px red;
-            opacity: 0;
-            transform: translateY(5px);
-            animation: fadeIn 0.3s ease-in-out forwards;
+            transform: scale(1);
         }
 
+        /* 🔥 Popout Effect Restored */
         .definition:hover {
             background: rgba(48, 0, 0, 0.95);
             box-shadow: 0 0 30px red;
@@ -131,11 +137,6 @@
             font-size: 1.5em;
             color: #ff6666;
             text-shadow: 0 0 15px red;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(5px); }
-            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
@@ -247,9 +248,11 @@
             renderDefinitions(e.target.value);
         });
 
-        // 🎯 Fix Cursor Offset & Smooth Tracking
+        // 🎯 Fix Cursor Offset & Make It Track Perfectly
         document.addEventListener('mousemove', (e) => {
-            cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+            requestAnimationFrame(() => {
+                cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+            });
         });
 
         document.addEventListener('mouseenter', () => {
@@ -264,3 +267,4 @@
     </script>
 </body>
 </html>
+
