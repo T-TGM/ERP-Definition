@@ -116,7 +116,7 @@
             transition: all 0.3s ease-in-out;
             border: 3px solid #ff4444;
             text-shadow: 0 0 5px red;
-            user-select: none;
+            user-select: text; /* 🔥 Allows text to be copied */
             position: relative;
             box-shadow: 0 0 20px red;
             transform: scale(1);
@@ -163,6 +163,19 @@
             text-align: center;
             margin-top: 15px;
             text-shadow: 0 0 15px red;
+        }
+
+        /* 🔗 Clickable Links */
+        .definition a {
+            color: #ff7777;
+            text-decoration: underline;
+            font-weight: bold;
+            text-shadow: 0 0 10px red;
+        }
+
+        .definition a:hover {
+            color: #ffaaaa;
+            text-shadow: 0 0 20px red;
         }
 
     </style>
@@ -265,8 +278,8 @@
             { "number": 70, "term": "ToS Follower", "synonyms": ["Rule Abider", "Fake Innocent"], "definition": "A term used by ERP participants to falsely claim they follow Roblox’s Terms of Service while secretly engaging in inappropriate behavior. This is often used as a cover to avoid suspicion from moderators."},
             { "number": 71, "term": "Mommy", "synonyms": ["Mom", "Dommy Mommy", "Mother"], "definition": "A term used in incest-based ERP roleplay, often referring to a maternal figure in a sexual context. This is highly inappropriate and a blatant violation of Roblox’s ToS."},
             { "number": 72, "term": "Daddy", "synonyms": ["Dad", "Daddi", "Dadzaddy"], "definition": "A term used in incest-based ERP scenarios to refer to a paternal figure in a sexual context. This violates Roblox’s ToS and is linked to highly inappropriate roleplay."},
-            { "number": 22, "term": "Morse Code", "synonyms": ["•-", "Bypassed Chat", "Dot Dash"], "definition": "A method used by ERP participants to bypass Roblox's chat filters by encoding inappropriate messages in Morse code. This allows users to communicate explicit content while avoiding detection. Online translators can be used to decode messages: https://morsecode.world/international/translator.html"}, 
-            {"number": 23, "term": "Caesar Cipher", "synonyms": ["Shift Cipher", "Bypass Code", "Encrypted Text"], "definition": "A basic encryption technique used by ERP users to disguise explicit messages by shifting letters in the alphabet. This method helps evade Roblox's chat moderation. Decoding tools can be found here: https://cryptii.com/pipes/caesar-cipher"}  
+            { "number": 73, "term": "Morse Code", "synonyms": ["•-", "Bypassed Chat", "Dot Dash"], "definition": "A method used by ERP participants to bypass Roblox's chat filters by encoding inappropriate messages in Morse code. This allows users to communicate explicit content while avoiding detection. Online translators can be used to decode messages: https://morsecode.world/international/translator.html"}, 
+            { "number": 74, "term": "Caesar Cipher", "synonyms": ["Shift Cipher", "Bypass Code", "Encrypted Text"], "definition": "A basic encryption technique used by ERP users to disguise explicit messages by shifting letters in the alphabet. This method helps evade Roblox's chat moderation. Decoding tools can be found here: https://cryptii.com/pipes/caesar-cipher"} 
         ];
         const container = document.getElementById('definitions');
         const searchBar = document.getElementById('search-bar');
@@ -276,37 +289,25 @@
             container.innerHTML = '';
 
             definitions.forEach(({ number, term, definition, synonyms }) => {
-                if (
-                    term.toLowerCase().includes(filter.toLowerCase()) ||
-                    synonyms.some(s => s.toLowerCase().includes(filter.toLowerCase())) ||
-                    number.toString().includes(filter)
-                ) {
+                if (term.toLowerCase().includes(filter.toLowerCase()) || synonyms.some(s => s.toLowerCase().includes(filter.toLowerCase())) || number.toString().includes(filter)) {
                     const defElement = document.createElement('div');
                     defElement.className = 'definition hidden';
-                    defElement.innerHTML = `
-                        <span class="definition-number">#${number}</span>
-                        <p class='term'>${term}</p>
-                        <p>${definition}</p>
-                    `;
+                    defElement.innerHTML = `<span class="definition-number">#${number}</span><p class='term'>${term}</p><p>${definition}</p>`;
                     container.appendChild(defElement);
                     setTimeout(() => defElement.classList.remove('hidden'), 50);
                 }
             });
         }
 
-        searchBar.addEventListener('input', (e) => {
-            renderDefinitions(e.target.value);
-        });
+        searchBar.addEventListener('input', (e) => renderDefinitions(e.target.value));
 
-        document.addEventListener('mousemove', (e) => {
-            requestAnimationFrame(() => {
-                cursor.style.left = `${e.clientX}px`;
-                cursor.style.top = `${e.clientY}px`;
-            });
-        });
+        document.addEventListener('mousemove', (e) => requestAnimationFrame(() => { cursor.style.left = `${e.clientX}px`; cursor.style.top = `${e.clientY}px`; }));
 
         renderDefinitions();
     </script>
+</body>
+</html>
+
 </body>
 </html>
 
