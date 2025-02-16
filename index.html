@@ -5,65 +5,124 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Roblox ERP Dictionary</title>
     <style>
-        /* General Page Styles */
+        /* General Page Styling */
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #0d0d0d;
+            font-family: 'Poppins', sans-serif;
+            background: radial-gradient(circle at top, #121212, #000000);
             color: #e0e0e0;
             display: flex;
             justify-content: center;
             align-items: flex-start;
             height: 100vh;
             margin: 0;
-            padding-top: 50px;
+            padding-top: 60px;
+            overflow: hidden;
+            cursor: none;
         }
-        
+
+        /* Floating Light Effect */
+        body::before {
+            content: "";
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255, 204, 0, 0.3), transparent);
+            border-radius: 50%;
+            top: var(--mouse-y, 50%);
+            left: var(--mouse-x, 50%);
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            transition: transform 0.1s ease-out;
+        }
+
         /* Main Container */
         .container {
-            width: 85%;
-            max-width: 900px;
+            width: 90%;
+            max-width: 1000px;
             background: rgba(30, 30, 30, 0.9);
-            padding: 35px;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(255, 204, 0, 0.15);
+            padding: 40px;
+            border-radius: 18px;
+            box-shadow: 0 15px 30px rgba(255, 204, 0, 0.2);
             text-align: center;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 204, 0, 0.2);
+            backdrop-filter: blur(12px);
+            border: 2px solid rgba(255, 204, 0, 0.3);
+            position: relative;
+            overflow: hidden;
         }
-        
+
+        /* Gradient Shine Effect */
+        .container::before {
+            content: "";
+            position: absolute;
+            top: -50px;
+            left: -50px;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(120deg, transparent, rgba(255, 204, 0, 0.2), transparent);
+            transform: rotate(25deg);
+            animation: shine 4s infinite linear;
+        }
+
+        @keyframes shine {
+            0% { transform: translate(-100%, -100%) rotate(25deg); }
+            100% { transform: translate(100%, 100%) rotate(25deg); }
+        }
+
         /* Title Styling */
         h1 {
-            font-size: 2.6em;
+            font-size: 2.8em;
             color: #ffcc00;
             margin-bottom: 30px;
-            text-shadow: 0 0 12px rgba(255, 204, 0, 0.8);
-            letter-spacing: 1px;
+            text-shadow: 0 0 18px rgba(255, 204, 0, 0.7);
+            letter-spacing: 1.5px;
+            position: relative;
+            z-index: 10;
         }
 
         /* Definition Box Styling */
         .definition {
-            background: rgba(40, 40, 40, 0.8);
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 18px;
+            background: rgba(40, 40, 40, 0.85);
+            padding: 22px;
+            border-radius: 14px;
+            margin-bottom: 20px;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             border-left: 6px solid #ffcc00;
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
         }
 
-        /* Hover Effect for Cards */
+        /* Definition Hover Effect */
         .definition:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 0 20px rgba(255, 204, 0, 0.4);
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(255, 204, 0, 0.4);
             background: rgba(50, 50, 50, 0.95);
+        }
+
+        /* Hover Glow */
+        .definition::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 5px;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(90deg, transparent, #ffcc00, transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .definition:hover::after {
+            opacity: 1;
         }
 
         /* Term Styling */
         .term {
             font-weight: bold;
-            font-size: 1.5em;
+            font-size: 1.6em;
             color: #ffcc00;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
+            text-shadow: 0 0 12px rgba(255, 204, 0, 0.5);
         }
 
         /* Definition Text */
@@ -71,6 +130,30 @@
             margin: 0;
             font-size: 1.2em;
             color: #ddd;
+        }
+
+        /* Cursor Tracking Effect */
+        body {
+            --mouse-x: 50%;
+            --mouse-y: 50%;
+        }
+
+        body:hover {
+            cursor: none;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle, #ffcc00 50%, transparent);
+            border-radius: 50%;
+            top: var(--mouse-y);
+            left: var(--mouse-x);
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s ease-out;
+            pointer-events: none;
         }
     </style>
 </head>
@@ -89,7 +172,7 @@
         ];
 
         const container = document.getElementById("definitions");
-        
+
         function renderDefinitions() {
             container.innerHTML = "";
             definitions.forEach(({ term, definition }) => {
@@ -99,8 +182,14 @@
                 container.appendChild(div);
             });
         }
-        
+
         renderDefinitions();
+
+        /* Interactive Floating Glow Effect */
+        document.addEventListener("mousemove", (event) => {
+            document.body.style.setProperty("--mouse-x", `${event.clientX}px`);
+            document.body.style.setProperty("--mouse-y", `${event.clientY}px`);
+        });
     </script>
 </body>
 </html>
