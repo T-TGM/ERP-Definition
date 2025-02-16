@@ -5,7 +5,6 @@
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     <title>Roblox ERP Dictionary</title>
     <style>
-        /* 🔥 Epic Animated Background */
         @keyframes bgAnimation {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
@@ -26,10 +25,10 @@
             padding-top: 60px;
             overflow: hidden;
             position: relative;
-            cursor: none; /* Hides all default cursors */
+            cursor: none; /* 🔥 Hides all default cursors */
         }
 
-        /* 🔥 Fully Red Custom Cursor */
+        /* 🔥 Custom Red Cursor */
         .custom-cursor {
             position: fixed;
             width: 12px;
@@ -99,6 +98,7 @@
             text-align: center;
             box-shadow: 0 0 20px red;
             transition: all 0.2s ease-in-out;
+            cursor: none; /* 🔥 Hides the cursor in the search bar */
         }
 
         #search-bar:focus {
@@ -113,7 +113,7 @@
             padding: 15px;
             background: rgba(32, 0, 0, 0.95);
             border-radius: 8px;
-            transition: all 0.4s ease-in-out; /* Smoother transition */
+            transition: all 0.3s ease-in-out;
             border: 3px solid #ff4444;
             text-shadow: 0 0 5px red;
             user-select: none;
@@ -123,7 +123,7 @@
             opacity: 1;
         }
 
-        /* 🔥 Popout Effect */
+        /* 🔥 Popout Effect Restored */
         .definition:hover {
             background: rgba(48, 0, 0, 0.95);
             box-shadow: 0 0 30px red;
@@ -137,23 +137,32 @@
             text-shadow: 0 0 15px red;
         }
 
-        /* 🔢 Number Position */
+        /* 🔢 Numbering on Definitions */
         .definition-number {
             position: absolute;
             top: 10px;
             right: 15px;
             font-size: 1.2em;
-            color: #ff8888;
-            text-shadow: 0 0 10px red;
+            font-weight: bold;
+            color: #ff9999;
+            text-shadow: 0 0 15px red;
         }
 
-        /* 🏆 Footer */
+        /* ⬇️ Smooth Hiding Animation */
+        .hidden {
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* 👤 TGM Footer */
         .footer {
-            text-align: center;
-            margin-top: 20px;
             font-size: 1.1em;
-            color: #ff4444;
-            text-shadow: 0 0 10px red;
+            color: #ff6666;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 15px;
+            text-shadow: 0 0 15px red;
         }
 
     </style>
@@ -178,7 +187,7 @@
 
         <div id='definitions'></div>
 
-        <!-- 🏆 Footer -->
+        <!-- 👤 Made by TGM -->
         <div class="footer">Made by TGM</div>
     </div>
 
@@ -241,7 +250,6 @@
             { "number": 55, "term": "Cumdump", "synonyms": ["Seed Tank", "Sperm Vault", "Receptacle", "Dumptruck", "C.Dump"], "definition": "A promiscuous woman who is not choosy about her sexual partners and who allows most or all men who she has sex with to cum inside of her without protection. This term is explicit and violates Roblox’s policies on sexual content." },  
             { "number": 56, "term": "Blvcksshota", "synonyms": ["Backshot", "Bkshot", "Bcksh0t", "Bcksh0ta", "Bckshoota", "Bkshoota", "Bksh0ta"], "definition": "A bypassed version of 'Backshot,' a sexual position commonly referenced in ERP. Any use of this or similar bypasses violates Roblox’s ToS." }
         ];
-
         const container = document.getElementById('definitions');
         const searchBar = document.getElementById('search-bar');
         const cursor = document.querySelector('.custom-cursor');
@@ -251,21 +259,21 @@
 
             definitions.forEach(({ number, term, definition, synonyms }) => {
                 if (
-                    term.toLowerCase().includes(filter.toLowerCase()) || 
+                    term.toLowerCase().includes(filter.toLowerCase()) ||
                     synonyms.some(s => s.toLowerCase().includes(filter.toLowerCase())) ||
                     number.toString().includes(filter)
                 ) {
                     const defElement = document.createElement('div');
-                    defElement.className = 'definition';
-                    defElement.innerHTML = `<div class='definition-number'>#${number}</div><p class='term'>${term}</p><p>${definition}</p>`;
+                    defElement.className = 'definition hidden';
+                    defElement.innerHTML = `
+                        <span class="definition-number">#${number}</span>
+                        <p class='term'>${term}</p>
+                        <p>${definition}</p>
+                    `;
                     container.appendChild(defElement);
+                    setTimeout(() => defElement.classList.remove('hidden'), 50);
                 }
             });
-
-            container.style.opacity = 0;
-            setTimeout(() => {
-                container.style.opacity = 1;
-            }, 200); /* Smoother transition */
         }
 
         searchBar.addEventListener('input', (e) => {
@@ -273,11 +281,14 @@
         });
 
         document.addEventListener('mousemove', (e) => {
-            cursor.style.left = `${e.clientX}px`;
-            cursor.style.top = `${e.clientY}px`;
+            requestAnimationFrame(() => {
+                cursor.style.left = `${e.clientX}px`;
+                cursor.style.top = `${e.clientY}px`;
+            });
         });
 
         renderDefinitions();
     </script>
 </body>
 </html>
+
