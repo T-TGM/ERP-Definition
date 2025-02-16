@@ -82,6 +82,31 @@
             color: #ff6666;
         }
 
+        /* Info Board */
+        .info-board {
+            margin-top: 30px;
+            padding: 20px;
+            background: #220000;
+            border: 2px solid red;
+            border-radius: 10px;
+            box-shadow: 0 0 20px red;
+            text-align: left;
+            color: #ff8888;
+            text-shadow: 0 0 5px red;
+            font-size: 1em;
+        }
+
+        .info-board h2 {
+            color: #ff4444;
+            text-align: center;
+            text-shadow: 0 0 8px red;
+        }
+
+        .info-board ul {
+            list-style-type: square;
+            padding-left: 20px;
+        }
+
         /* Custom Cursor */
         .cursor {
             width: 15px;
@@ -124,8 +149,16 @@
     <div class="container">
         <h1>Roblox ERP Dictionary</h1>
         <div id="definitions"></div>
-        
-        <!-- Customizable Text Section -->
+
+        <!-- Info Board -->
+        <div class="info-board">
+            <h2>⚠️ ERP Violation Info Board ⚠️</h2>
+            <ul>
+                <li><strong>Quick note.</strong>ERP Accounts may censor the phrases/words listed below with an X or other letters, look out for this</li>
+            </ul>
+        </div>
+
+        <!-- Bottom Section -->
         <div class="bottom-text">
             <img src="https://cdn.discordapp.com/icons/1278443079564525643/0845a0b3cca89aed44b3e086d0563d93.png?size=32" alt="Icon">
             <span>Made by TGM</span>
@@ -144,8 +177,8 @@
             { term: "Toy", definition: "A young man used as a 'toy' for pleasure without any serious relationship intention." },
             { term: "ACED", definition: "Short for 'Ace of Spades,' with 'spade' being a derogatory term for an African American. Used by ERP users." },
             { term: "Homewrecker", definition: "A person responsible for breaking up relationships, commonly used among ERP users." },
-            { term: "Hung/hxng", definition: "Refers to a male with large genitals. 'Hxng' is a filter-bypass version." },
-            { term: "Femboy", definition: "A biologically male individual who presents femininely, often in submissive ERP scenarios." },
+            { term: "Hung / Hxng", definition: "Refers to a male with large genitals. 'Hxng' is a filter-bypass version." },
+            { term: "Femby / Fem / Femboy", definition: "A term referring to a biologically male individual who presents in a feminine manner. In ERP, this is often used to indicate submissiveness in sexual roleplay. The use of these terms in Roblox bios, usernames, or chats is a strong indicator of inappropriate activity." },
             { term: "Dih", definition: "Acronym for 'dick in hand,' referring to something sexually arousing." },
             { term: "Good Time", definition: "In ERP, this refers to engaging in sexual intercourse." },
             { term: "Personal Trainer", definition: "A term used in ERP to disguise roleplay with physical contact or suggestive 'training' sessions." },
@@ -165,7 +198,18 @@
             { term: "Edge", definition: "To edge is a masturbation technique (used mostly, but not exclusively by men) where you intentionally bring yourself to the brink (edge) of orgasm- but don't cum. Instead you stop and let the pleasurable feelings die down." },
             { term: "Goon", definition: "To masturbate, especially in an obsessive or energetic way. See gooning. Also, the act of masturbating energetically." },
             { term: "Bunny", definition: "Another way of saying Snowbunny." },
-            { term: "♠️", definition: "This symbol is often used in ERP communities as a covert way to reference racial fetishization, specifically towards Black individuals. It is frequently associated with terms like 'BBC' and 'spade,' both of which are used in a highly inappropriate and fetishistic manner. The use of this emoji in usernames, bios, or chats on Roblox is a clear violation of the Terms of Service." }
+            { term: "♠️", definition: "This symbol is often used in ERP communities as a covert way to reference racial fetishization, specifically towards Black individuals. It is frequently associated with terms like 'BBC' and 'spade,' both of which are used in a highly inappropriate and fetishistic manner. The use of this emoji in usernames, bios, or chats on Roblox is a clear violation of the Terms of Service." },
+            { term: "Breeder", definition: "A term used in ERP to refer to someone who is sexually dominant and engages in roleplay focused on impregnation. This is highly inappropriate and a clear violation of Roblox’s Terms of Service." },
+            { term: "Yoga Instructor", definition: " A disguised ERP term that often refers to someone taking a dominant role in explicit roleplay scenarios, using 'stretching' and 'flexibility' as euphemisms for inappropriate activity." },
+            { term: "Snowplower", definition: "A term used in ERP communities to refer to someone who seeks out sexual interactions with white individuals, particularly in interracial roleplay scenarios. This term is both fetishistic and inappropriate for a platform like Roblox." },
+            { term: "Whitecake", definition: "A fetishizing term used in ERP to describe a sexual preference for white individuals, often in the context of interracial roleplay. This term is inappropriate and violates Roblox’s Terms of Service due to its racial and sexual implications." },
+            { term: "Huge Man", definition: "A term used in ERP contexts to imply someone with an exceptionally large penis. Often seen in usernames or bios to signal sexual dominance, violating Roblox’s Terms of Service." },
+            { term: "Trade", definition: "A term used in ERP to refer to exchanging explicit images, often implying the trading of nudes. This is a serious violation of Roblox’s safety policies and can involve illegal activity." },
+            { term: "Black Wood", definition: "A fetishizing term referring to a Black man's genitals, similar to 'BBC' but more discreet. Its use in usernames or bios is a clear indicator of ERP behavior." },
+            { term: "Gym Trainer", definition: "A term used in ERP roleplay to disguise sexual scenarios under the guise of 'training' or 'personal coaching.' This often involves dominant/submissive dynamics, making it inappropriate for Roblox." },
+            { term: "BWC (Big White Cock)", definition: "A term used in explicit sexual content to fetishize white men. Its use in Roblox bios or usernames indicates ERP activity and is a violation of the platform’s rules." },
+            { term: "BMC (Big Mexican Cock)", definition: "A racialized and explicit term used in ERP to describe a Mexican man's genitals. This violates Roblox’s Terms of Service due to its fetishistic and inappropriate nature." },
+            { term: "Rough", definition: "In ERP, this term refers to aggressive or dominant sexual activity. Its use in usernames, bios, or chat suggests ERP participation and is a direct violation of Roblox’s rules." }
         ];
 
         const container = document.getElementById("definitions");
@@ -181,15 +225,7 @@
         }
 
         renderDefinitions();
-
-        // Cursor Effect
-        const cursor = document.getElementById("cursor");
-
-        document.addEventListener("mousemove", (e) => {
-            cursor.style.left = `${e.clientX}px`;
-            cursor.style.top = `${e.clientY}px`;
-        });
-
     </script>
 </body>
 </html>
+
