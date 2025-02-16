@@ -32,8 +32,9 @@
             max-height: 80vh;
             overflow-y: auto;
             border: 2px solid red;
-            scrollbar-width: thin; /* Thin scrollbar */
+            scrollbar-width: thin;
             scrollbar-color: red black;
+            position: relative;
         }
 
         .container::-webkit-scrollbar {
@@ -65,7 +66,8 @@
             transition: all 0.3s ease-in-out;
             border: 2px solid #ff4444;
             text-shadow: 0 0 5px red;
-            user-select: none; /* Disable text selection */
+            user-select: none;
+            position: relative;
         }
 
         .definition:hover {
@@ -90,13 +92,19 @@
             pointer-events: none;
             transform: translate(-50%, -50%);
             box-shadow: 0 0 10px red;
-            transition: transform 0.08s ease-out, left 0.08s linear, top 0.08s linear;
+            transition: transform 0.05s ease-out, left 0.05s linear, top 0.05s linear;
+            z-index: 9999;
         }
 
         /* Cursor Click Effect */
         .cursor-click {
             transform: scale(1.8);
             opacity: 0.7;
+        }
+
+        /* Ensure cursor is visible over interactive elements */
+        .definition, .container, h1 {
+            cursor: none !important; /* Forces custom cursor to remain visible */
         }
 
     </style>
@@ -134,11 +142,8 @@
         const cursor = document.getElementById("cursor");
 
         document.addEventListener("mousemove", (e) => {
-            const scaleX = window.innerWidth / 1920;
-            const scaleY = window.innerHeight / 1080;
-
-            cursor.style.left = `${e.clientX / scaleX}px`;
-            cursor.style.top = `${e.clientY / scaleY}px`;
+            cursor.style.left = `${e.clientX}px`;
+            cursor.style.top = `${e.clientY}px`;
         });
 
         // Cursor Click Effect
