@@ -5,13 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Roblox ERP Dictionary</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
-
-        /* 🏆 General Styling */
         body {
-            font-family: 'Orbitron', sans-serif;
-            background: radial-gradient(circle at center, #000000, #1a0000);
-            color: #e0e0e0;
+            font-family: Arial, sans-serif;
+            background-color: #1e1e1e;
+            color: #ddd;
             display: flex;
             justify-content: center;
             align-items: flex-start;
@@ -19,177 +16,88 @@
             margin: 0;
             padding-top: 60px;
             overflow: hidden;
-            position: relative;
         }
-
-        /* 🔥 Cursor Styling */
-        .cursor {
-            position: fixed;
-            width: 16px;
-            height: 16px;
-            background: red;
-            border-radius: 50%;
-            pointer-events: none;
-            box-shadow: 0 0 25px rgba(255, 0, 0, 0.9);
-            z-index: 1000;
-            transform: translate(-50%, -50%);
-            transition: transform 0.06s ease-out;
-        }
-
-        /* 🌀 Cursor Glow Effect */
-        .cursor-trail {
-            position: fixed;
-            width: 80px;
-            height: 80px;
-            background: radial-gradient(circle, rgba(255, 0, 0, 0.2), transparent);
-            border-radius: 50%;
-            pointer-events: none;
-            transform: translate(-50%, -50%);
-            transition: transform 0.12s ease-out;
-            z-index: 999;
-        }
-
-        /* 📜 Dictionary Container */
         .container {
             width: 90%;
             max-width: 1000px;
-            background: rgba(20, 0, 0, 0.9);
+            background: #2a2a2a;
             padding: 40px;
-            border-radius: 18px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
             text-align: center;
-            backdrop-filter: blur(12px);
-            border: 2px solid rgba(255, 0, 0, 0.4);
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
-            animation: glowBorder 2s infinite alternate ease-in-out;
+            max-height: 80vh;
+            overflow-y: auto;
         }
-
-        /* 🔥 Glowing Animated Border */
-        @keyframes glowBorder {
-            from { box-shadow: 0 0 20px rgba(255, 0, 0, 0.6); }
-            to { box-shadow: 0 0 40px rgba(255, 0, 0, 0.9); }
-        }
-
-        /* 🔥 Typing Effect on Title */
         h1 {
-            font-size: 2.5em;
-            color: red;
-            text-shadow: 0 0 12px rgba(255, 0, 0, 0.7);
-            letter-spacing: 1.5px;
-            overflow: hidden;
-            white-space: nowrap;
-            border-right: 4px solid red;
-            width: 0;
-            animation: typing 2.5s steps(30, end) forwards;
+            margin-bottom: 25px;
+            font-size: 2em;
+            color: #fff;
         }
-
-        @keyframes typing {
-            from { width: 0; }
-            to { width: 100%; }
-        }
-
-        /* 💥 Definition Box Styling */
         .definition {
-            background: rgba(40, 0, 0, 0.85);
-            padding: 22px;
-            border-radius: 14px;
             margin-bottom: 20px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border-left: 6px solid red;
-            position: relative;
-            overflow: hidden;
+            padding: 15px;
+            background: #333;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
         }
-
-        /* 💀 Shockwave Hover Effect */
         .definition:hover {
-            transform: scale(1.08);
-            box-shadow: 0 0 35px rgba(255, 0, 0, 0.6);
-            background: rgba(50, 0, 0, 0.95);
+            background: #444;
         }
-
-        .definition::after {
-            content: "";
-            position: absolute;
-            width: 100%;
-            height: 5px;
-            bottom: 0;
-            left: 0;
-            background: linear-gradient(90deg, transparent, red, transparent);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .definition:hover::after {
-            opacity: 1;
-        }
-
-        /* 🌟 Glitch Text Effect */
-        .glitch {
-            animation: glitch 0.8s infinite alternate;
-        }
-
-        @keyframes glitch {
-            from { text-shadow: 2px 2px red; }
-            to { text-shadow: -2px -2px red; }
-        }
-
-        /* Definition Text */
         .term {
             font-weight: bold;
-            font-size: 1.6em;
-            color: red;
-            margin-bottom: 10px;
-            text-shadow: 0 0 12px rgba(255, 0, 0, 0.5);
+            font-size: 1.3em;
+            color: #ffcc00;
         }
-
+        /* Custom Cursor */
+        .cursor {
+            width: 15px;
+            height: 15px;
+            background-color: red;
+            border-radius: 50%;
+            position: absolute;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 10px red;
+        }
     </style>
 </head>
 <body>
-    <!-- 🔥 Cursor Effects -->
-    <div class="cursor"></div>
-    <div class="cursor-trail"></div>
+    <div class="cursor" id="cursor"></div>
 
-    <!-- 📜 Dictionary Container -->
     <div class="container">
-        <h1 class="glitch">Roblox ERP Dictionary</h1>
+        <h1>Roblox ERP Dictionary</h1>
         <div id="definitions"></div>
     </div>
 
     <script>
         const definitions = [
-            { term: "Roblox Condo", definition: "A game designed for explicit roleplay, often violating Roblox's ToS." },
-            { term: "MDNI", definition: "Short for 'Minors Do Not Interact,' often used in ERP communities." },
-            { term: "Blue App", definition: "Bypassed way to say Discord, the icon is similar to a blue icon." },
-            { term: "💿/📀", definition: "Bypassed way to say Discord, 'disc' sounds similar to 'Discord'." }
+            { term: "Roblox Condo", definition: "A game designed for explicit roleplay, often violating Roblox's ToS.", link: "https://t-tgm.github.io/ERP-Definition/roblox-condo" },
+            { term: "MDNI", definition: "Short for 'Minors Do Not Interact,' often used in ERP communities.", link: "https://t-tgm.github.io/ERP-Definition/mdni" },
+            { term: "Blue App", definition: "Bypassed way to say Discord, the icon is similar to a blue icon.", link: "https://t-tgm.github.io/ERP-Definition/blue-app" },
+            { term: "💿/📀", definition: "Bypassed way to say Discord, disc is close to the word Discord which proves it.", link: "https://t-tgm.github.io/ERP-Definition/disc" }
         ];
 
         const container = document.getElementById("definitions");
 
         function renderDefinitions() {
             container.innerHTML = "";
-            definitions.forEach(({ term, definition }) => {
+            definitions.forEach(({ term, definition, link }) => {
                 const div = document.createElement("div");
                 div.classList.add("definition");
                 div.innerHTML = `<p class='term'>${term}</p><p>${definition}</p>`;
+                div.onclick = () => window.open(link, "_blank");
                 container.appendChild(div);
             });
         }
-
         renderDefinitions();
 
-        /* 🔥 Dynamic Cursor Effects */
-        const cursor = document.querySelector('.cursor');
-        const cursorTrail = document.querySelector('.cursor-trail');
-
-        document.addEventListener("mousemove", (event) => {
-            let x = event.clientX;
-            let y = event.clientY;
-            
-            cursor.style.transform = `translate(${x}px, ${y}px)`;
-            cursorTrail.style.transform = `translate(${x}px, ${y}px)`;
+        // Cursor Tracking Fix
+        const cursor = document.getElementById("cursor");
+        document.addEventListener("mousemove", (e) => {
+            cursor.style.left = `${e.clientX}px`;
+            cursor.style.top = `${e.clientY}px`;
         });
-
     </script>
 </body>
 </html>
