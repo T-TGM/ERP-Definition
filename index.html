@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Roblox ERP Dictionary</title>
     <style>
-        /* General Page Styling */
+        /* General Styling */
         body {
             font-family: 'Poppins', sans-serif;
             background: radial-gradient(circle at top, #000000, #1a0000);
@@ -18,10 +18,9 @@
             padding-top: 60px;
             overflow: hidden;
             position: relative;
-            cursor: none;
         }
 
-        /* 🔲 Animated Grid Background */
+        /* 🔲 Animated Hacker Background */
         body::after {
             content: "";
             position: absolute;
@@ -32,21 +31,22 @@
             z-index: -1;
         }
 
-        /* 🔥 Floating Red Cursor Effect */
+        /* 🔥 Visible Cursor */
         .cursor {
-            position: absolute;
-            width: 15px;
-            height: 15px;
+            position: fixed;
+            width: 20px;
+            height: 20px;
             background: red;
             border-radius: 50%;
             pointer-events: none;
-            box-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
-            transition: transform 0.08s ease-out;
+            box-shadow: 0 0 25px rgba(255, 0, 0, 0.9);
+            z-index: 1000;
+            transition: transform 0.06s ease-out;
         }
 
-        /* 🔥 Larger Red Glow Following Cursor */
+        /* 🔥 Perfectly Centered Red Glow */
         .cursor-glow {
-            position: absolute;
+            position: fixed;
             width: 100px;
             height: 100px;
             background: radial-gradient(circle, rgba(255, 0, 0, 0.2), transparent);
@@ -54,6 +54,7 @@
             pointer-events: none;
             transform: translate(-50%, -50%);
             transition: transform 0.12s ease-out;
+            z-index: 999;
         }
 
         /* 📜 Main Dictionary Container */
@@ -73,7 +74,7 @@
 
         /* 🔥 Red Neon Title */
         h1 {
-            font-size: 2.8em;
+            font-size: 3em;
             color: red;
             margin-bottom: 30px;
             text-shadow: 0 0 18px rgba(255, 0, 0, 0.7);
@@ -95,9 +96,9 @@
             overflow: hidden;
         }
 
-        /* 🔥 Hover Animation - EXPLOSION EFFECT */
+        /* 🔥 3D Depth Hover Effect */
         .definition:hover {
-            transform: scale(1.08);
+            transform: scale(1.08) rotateX(5deg) rotateY(-5deg);
             box-shadow: 0 0 35px rgba(255, 0, 0, 0.6);
             background: rgba(50, 0, 0, 0.95);
         }
