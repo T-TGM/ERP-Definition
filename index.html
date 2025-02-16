@@ -18,7 +18,6 @@
             padding-top: 60px;
             overflow: hidden;
             position: relative;
-            cursor: none;
         }
 
         /* 🔥 Custom Cursor */
@@ -35,22 +34,9 @@
             z-index: 10000;
         }
 
-        /* ⚡ Neon Background Pulse */
-        body::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, rgba(255, 0, 0, 0.1), black 80%);
-            animation: pulseBackground 4s infinite alternate ease-in-out;
-            z-index: -2;
-        }
-
-        @keyframes pulseBackground {
-            0% { opacity: 0.5; }
-            100% { opacity: 0.8; }
+        /* ⚡ Fix Cursor Disappearing */
+        * {
+            cursor: none;
         }
 
         /* 💨 Floating Particles */
@@ -73,11 +59,6 @@
             opacity: 0.6;
             border-radius: 50%;
             animation: floatParticles 6s infinite linear;
-        }
-
-        @keyframes floatParticles {
-            from { transform: translateY(100vh) scale(1); opacity: 0.8; }
-            to { transform: translateY(-10vh) scale(0.5); opacity: 0; }
         }
 
         /* 🔥 Main Container */
@@ -106,21 +87,10 @@
             width: 12px;
         }
 
-        .container::-webkit-scrollbar-track {
-            background: black;
-            border-radius: 6px;
-        }
-
         .container::-webkit-scrollbar-thumb {
             background: linear-gradient(45deg, #ff0000, #660000);
             border-radius: 6px;
             box-shadow: 0 0 10px red;
-            animation: pulseScroll 1.5s infinite alternate ease-in-out;
-        }
-
-        @keyframes pulseScroll {
-            0% { filter: brightness(1); }
-            100% { filter: brightness(1.4); }
         }
 
         h1 {
@@ -128,7 +98,6 @@
             font-size: 2.2em;
             color: #ff2222;
             text-shadow: 0 0 20px red;
-            animation: fadeIn 1s ease-in-out;
         }
 
         /* 🎭 Interactive Search Bar */
@@ -145,28 +114,15 @@
             background: #200000;
             color: #ff5555;
             outline: none;
-            transition: all 0.3s ease-in-out;
             text-align: center;
             box-shadow: 0 0 20px red;
+            transition: all 0.3s ease-in-out;
         }
 
         #search-bar:focus {
             background: #300000;
             box-shadow: 0 0 35px red;
             transform: scale(1.05);
-        }
-
-        /* 🚨 Info Board */
-        .info-board {
-            padding: 15px;
-            background: rgba(32, 0, 0, 0.9);
-            border-radius: 8px;
-            border: 3px solid #ff4444;
-            text-shadow: 0 0 5px red;
-            user-select: none;
-            margin-bottom: 20px;
-            box-shadow: 0 0 15px red;
-            animation: fadeIn 1.2s ease-in-out;
         }
 
         /* 💡 Definition Cards */
@@ -181,6 +137,9 @@
             user-select: none;
             position: relative;
             box-shadow: 0 0 20px red;
+            opacity: 0;
+            transform: translateY(10px);
+            animation: fadeIn 0.5s ease-in-out forwards;
         }
 
         .definition:hover {
@@ -197,19 +156,15 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-
     </style>
 </head>
 <body>
 
     <!-- 🖱️ Custom Cursor -->
     <div class="custom-cursor"></div>
-
-    <!-- 🎇 Particle Background -->
-    <div class="particles"></div>
 
     <div class='container'>
         <h1>Roblox ERP Dictionary</h1>
@@ -289,17 +244,39 @@
 
         const container = document.getElementById('definitions');
         const searchBar = document.getElementById('search-bar');
+        const cursor = document.querySelector('.custom-cursor');
 
         function renderDefinitions(filter = '') {
             container.innerHTML = '';
             definitions.forEach(({ term, definition, synonyms }) => {
                 if (term.toLowerCase().includes(filter.toLowerCase()) || synonyms.some(s => s.toLowerCase().includes(filter.toLowerCase()))) {
-                    container.innerHTML += `<div class='definition'><p class='term'>${term}</p><p>${definition}</p></div>`;
+                    const defElement = document.createElement('div');
+                    defElement.className = 'definition';
+                    defElement.innerHTML = `<p class='term'>${term}</p><p>${definition}</p>`;
+                    container.appendChild(defElement);
                 }
             });
         }
 
-        searchBar.addEventListener('input', (e) => renderDefinitions(e.target.value));
+        searchBar.addEventListener('input', (e) => {
+            container.style.opacity = 0;
+            setTimeout(() => {
+                renderDefinitions(e.target.value);
+                container.style.opacity = 1;
+            }, 300);
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+        });
+
+        document.addEventListener('mouseenter', () => {
+            cursor.style.display = "block";
+        });
+
+        document.addEventListener('mouseleave', () => {
+            cursor.style.display = "none";
+        });
 
         renderDefinitions();
     </script>
