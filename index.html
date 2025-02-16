@@ -4,23 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Roblox ERP Dictionary</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            max-width: 800px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .definition {
+            margin-bottom: 20px;
+        }
+        .term {
+            font-weight: bold;
+            font-size: 1.2em;
+            color: #333;
+        }
+    </style>
 </head>
 <body>
-
-    <table width="100%" height="100%" style="border-collapse: collapse;">
-        <tr>
-            <td align="center" valign="middle">
-                <table width="600" cellpadding="20" border="1" style="background: white; border-radius: 10px;">
-                    <tr>
-                        <td align="center">
-                            <h1>Roblox ERP Dictionary</h1>
-                            <div id="definitions"></div>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-    </table>
+    <div class="container">
+        <h1>Roblox ERP Dictionary</h1>
+        <div id="definitions"></div>
+    </div>
 
     <script>
         const definitions = [
@@ -29,17 +45,18 @@
         ];
 
         const container = document.getElementById("definitions");
-
+        
         function renderDefinitions() {
-            let html = "";
+            container.innerHTML = "";
             definitions.forEach(({ term, definition }) => {
-                html += `<p><strong>${term}</strong><br>${definition}</p>`;
+                const div = document.createElement("div");
+                div.classList.add("definition");
+                div.innerHTML = `<p class='term'>${term}</p><p>${definition}</p>`;
+                container.appendChild(div);
             });
-            container.innerHTML = html;
         }
-
+        
         renderDefinitions();
     </script>
-
 </body>
 </html>
