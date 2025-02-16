@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Roblox ERP Dictionary</title>
     <style>
+        /* General Page Styles */
         body {
             font-family: Arial, sans-serif;
-            background-color: #1e1e1e;
-            color: #ddd;
+            background-color: #121212;
+            color: #e0e0e0;
             display: flex;
             justify-content: center;
             align-items: flex-start;
@@ -16,30 +17,55 @@
             margin: 0;
             padding-top: 60px;
         }
+        
+        /* Main Container */
         .container {
             width: 90%;
-            max-width: 1000px;
-            background: #2a2a2a;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            max-width: 900px;
+            background: #1e1e1e;
+            padding: 35px;
+            border-radius: 14px;
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.5);
             text-align: center;
         }
+        
+        /* Title Styling */
         h1 {
-            margin-bottom: 25px;
-            font-size: 2em;
-            color: #fff;
+            font-size: 2.4em;
+            color: #ffcc00;
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px rgba(255, 204, 0, 0.7);
         }
+
+        /* Definition Box Styling */
         .definition {
-            margin-bottom: 20px;
-            padding: 15px;
-            background: #333;
-            border-radius: 8px;
+            background: #242424;
+            padding: 18px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border-left: 6px solid #ffcc00;
         }
+
+        /* Hover Effect for Cards */
+        .definition:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(255, 204, 0, 0.3);
+        }
+
+        /* Term Styling */
         .term {
             font-weight: bold;
-            font-size: 1.3em;
+            font-size: 1.4em;
             color: #ffcc00;
+            margin-bottom: 5px;
+        }
+
+        /* Definition Text */
+        .definition p {
+            margin: 0;
+            font-size: 1.1em;
+            color: #ccc;
         }
     </style>
 </head>
