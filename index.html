@@ -57,6 +57,31 @@
             text-shadow: 0 0 10px red;
         }
 
+        /* Info Board - Now Below Title */
+        .info-board {
+            margin-top: 15px;
+            padding: 20px;
+            background: #220000;
+            border: 2px solid red;
+            border-radius: 10px;
+            box-shadow: 0 0 20px red;
+            text-align: left;
+            color: #ff8888;
+            text-shadow: 0 0 5px red;
+            font-size: 1em;
+        }
+
+        .info-board h2 {
+            color: #ff4444;
+            text-align: center;
+            text-shadow: 0 0 8px red;
+        }
+
+        .info-board ul {
+            list-style-type: square;
+            padding-left: 20px;
+        }
+
         /* Definitions */
         .definition {
             margin-bottom: 20px;
@@ -80,31 +105,6 @@
             font-weight: bold;
             font-size: 1.3em;
             color: #ff6666;
-        }
-
-        /* Info Board */
-        .info-board {
-            margin-top: 30px;
-            padding: 20px;
-            background: #220000;
-            border: 2px solid red;
-            border-radius: 10px;
-            box-shadow: 0 0 20px red;
-            text-align: left;
-            color: #ff8888;
-            text-shadow: 0 0 5px red;
-            font-size: 1em;
-        }
-
-        .info-board h2 {
-            color: #ff4444;
-            text-align: center;
-            text-shadow: 0 0 8px red;
-        }
-
-        .info-board ul {
-            list-style-type: square;
-            padding-left: 20px;
         }
 
         /* Custom Cursor */
@@ -148,15 +148,22 @@
 
     <div class="container">
         <h1>Roblox ERP Dictionary</h1>
-        <div id="definitions"></div>
 
-        <!-- Info Board -->
+        <!-- Info Board (Now Directly Below the Title) -->
         <div class="info-board">
             <h2>⚠️ ERP Violation Info Board ⚠️</h2>
             <ul>
-                <li><strong>Quick note.</strong>ERP Accounts may censor the phrases/words listed below with an X or other letters, look out for this</li>
+                <li><strong>What is ERP?</strong> ERP (Erotic Roleplay) refers to explicit sexual roleplaying that violates Roblox’s Terms of Service.</li>
+                <li><strong>Why is this a problem?</strong> ERP on Roblox is a serious issue as it promotes inappropriate content in a platform designed for children.</li>
+                <li><strong>Red Flags:</strong> Terms such as "BBC," "Bull," "Toy," and "Snow Bunny" often indicate ERP activity.</li>
+                <li><strong>Reporting ERP Users:</strong> If you see these terms in usernames, bios, or chat, report the user immediately to Roblox Moderation.</li>
+                <li><strong>Consequences:</strong> ERP participants can face permanent bans and account terminations.</li>
+                <li><strong>Stay Safe:</strong> Never interact with users promoting ERP content. Avoid suspicious links, groups, and friend requests.</li>
             </ul>
         </div>
+
+        <!-- Dictionary Terms -->
+        <div id="definitions"></div>
 
         <!-- Bottom Section -->
         <div class="bottom-text">
@@ -166,6 +173,14 @@
     </div>
 
     <script>
+        // Custom Cursor Movement
+        const cursor = document.getElementById("cursor");
+
+        document.addEventListener("mousemove", (e) => {
+            cursor.style.left = `${e.clientX}px`;
+            cursor.style.top = `${e.clientY}px`;
+        });
+
         const definitions = [
             { term: "Roblox Condo", definition: "A game designed for explicit roleplay, often violating Roblox's ToS." },
             { term: "MDNI", definition: "Short for 'Minors Do Not Interact,' often used in ERP communities." },
@@ -228,4 +243,3 @@
     </script>
 </body>
 </html>
-
