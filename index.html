@@ -28,17 +28,19 @@
             position: relative;
         }
 
-        /* 🔥 Fully Red Custom Cursor (FIXED) */
-        .custom-cursor {
-            position: fixed;
-            width: 12px;
-            height: 12px;
-            background: red;
-            border-radius: 50%;
-            pointer-events: none;
-            box-shadow: 0 0 8px red;
-            transition: transform 0.03s linear;
-            z-index: 10000;
+/* 🔥 Fully Red Custom Cursor (LOCKED & FIXED) */
+.custom-cursor {
+    position: fixed;
+    width: 12px;
+    height: 12px;
+    background: red;
+    border-radius: 50%;
+    pointer-events: none;
+    box-shadow: 0 0 8px red;
+    transform: translate(-50%, -50%);
+    z-index: 10000;
+    transition: transform 0.03s linear;
+}
         }
 
         /* Fix Cursor Disappearing */
@@ -248,12 +250,13 @@
             renderDefinitions(e.target.value);
         });
 
-        // 🎯 Fix Cursor Offset & Make It Track Perfectly
-        document.addEventListener('mousemove', (e) => {
-            requestAnimationFrame(() => {
-                cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
-            });
-        });
+// 🎯 Fix Cursor Offset & Make It Track Perfectly
+document.addEventListener('mousemove', (e) => {
+    requestAnimationFrame(() => {
+        cursor.style.left = `${e.clientX}px`;
+        cursor.style.top = `${e.clientY}px`;
+    });
+});
 
         document.addEventListener('mouseenter', () => {
             cursor.style.display = "block";
