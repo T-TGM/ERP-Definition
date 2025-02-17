@@ -25,7 +25,6 @@
             padding-top: 60px;
             overflow: hidden;
             position: relative;
-            cursor: none; /* 🔥 Hides all default cursors */
         }
 
         .custom-cursor {
@@ -39,6 +38,7 @@
             transform: translate(-50%, -50%);
             z-index: 10000;
             transition: transform 0.03s linear;
+            mix-blend-mode: difference; /* Makes it visible on all backgrounds */
         }
 
         .container {
@@ -54,11 +54,6 @@
             border: 3px solid red;
             position: relative;
             z-index: 2;
-            transition: transform 0.3s ease-in-out;
-        }
-
-        .container:hover {
-            transform: scale(1.02);
         }
 
         .container::-webkit-scrollbar {
@@ -93,14 +88,6 @@
             outline: none;
             text-align: center;
             box-shadow: 0 0 20px red;
-            transition: all 0.2s ease-in-out;
-            cursor: none;
-        }
-
-        #search-bar:focus {
-            background: #300000;
-            box-shadow: 0 0 35px red;
-            transform: scale(1.05);
         }
 
         .definition {
@@ -108,20 +95,24 @@
             padding: 15px;
             background: rgba(32, 0, 0, 0.95);
             border-radius: 8px;
-            transition: all 0.3s ease-in-out;
             border: 3px solid #ff4444;
             text-shadow: 0 0 5px red;
-            user-select: none;
             position: relative;
             box-shadow: 0 0 20px red;
-            transform: scale(1);
             opacity: 1;
+            user-select: text; /* Allows text selection */
         }
 
-        .definition:hover {
-            background: rgba(48, 0, 0, 0.95);
-            box-shadow: 0 0 30px red;
-            transform: scale(1.05);
+        .definition a {
+            color: #ff9999;
+            text-decoration: underline;
+            font-weight: bold;
+            pointer-events: auto; /* Ensures links are clickable */
+        }
+
+        .definition a:hover {
+            color: #ff5555;
+            text-shadow: 0 0 10px red;
         }
 
         .term {
@@ -141,12 +132,6 @@
             text-shadow: 0 0 15px red;
         }
 
-        .hidden {
-            opacity: 0;
-            transform: translateY(-10px);
-            transition: all 0.3s ease-in-out;
-        }
-
         .footer {
             font-size: 1.1em;
             color: #ff6666;
@@ -154,17 +139,6 @@
             text-align: center;
             margin-top: 15px;
             text-shadow: 0 0 15px red;
-        }
-
-        a {
-            color: #ff9999;
-            text-decoration: underline;
-            font-weight: bold;
-        }
-
-        a:hover {
-            color: #ff5555;
-            text-shadow: 0 0 10px red;
         }
 
     </style>
@@ -180,17 +154,13 @@
             <input type='text' id='search-bar' placeholder='Search for a term or number...'>
         </div>
 
-        <div class='info-board'>
-            <p><strong>🚨 Important:</strong> ERP Accounts are censoring inappropriate words/phrases with letters like X. E.g., "rough" is censored as "rxxgh." PLEASE BEWARE OF THIS, DSA MODERATORS.</p>
-        </div>
-
         <div id='definitions'></div>
 
         <div class="footer">Made by TGM</div>
     </div>
 
     <script>
-        const definitions = [ 
+        const definitions = [
             { "number": 1, "term": "ERP", "synonyms": ["Sex", "Erotic Roleplay"], "definition": "Erotic role-play is an activity that predators engage in on the Roblox platform. It involves sexual intercourse on Roblox or sexual roleplay in chat messages." },
             { "number": 2, "term": "Roblox Condo", "synonyms": ["Explicit Game", "ERP Place"], "definition": "A game designed for explicit roleplay, often violating Roblox's ToS." },
             { "number": 3, "term": "MDNI", "synonyms": ["Minors DNI", "Adult Zone"], "definition": "A tag meaning 'Minors Do Not Interact,' often used by adults engaging in inappropriate activity." },
@@ -281,14 +251,13 @@
                     number.toString().includes(filter)
                 ) {
                     const defElement = document.createElement('div');
-                    defElement.className = 'definition hidden';
+                    defElement.className = 'definition';
                     defElement.innerHTML = `
                         <span class="definition-number">#${number}</span>
                         <p class='term'>${term}</p>
                         <p>${definition}</p>
                     `;
                     container.appendChild(defElement);
-                    setTimeout(() => defElement.classList.remove('hidden'), 50);
                 }
             });
         }
@@ -298,6 +267,18 @@
         });
 
         renderDefinitions();
+
+        // Cursor Movement
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+        });
+
+        // Allow text selection & clickable links inside definitions
+        document.querySelectorAll('.definition').forEach((def) => {
+            def.style.userSelect = 'text';
+        });
+
     </script>
 </body>
 </html>
+
