@@ -58,6 +58,10 @@
             transition: transform 0.3s ease-in-out;
         }
 
+        .container:hover {
+            transform: scale(1.02);
+        }
+
         .definition {
             position: relative;
             margin-bottom: 20px;
@@ -81,8 +85,18 @@
             font-size: 1.5em;
             color: #ff6666;
             text-shadow: 0 0 15px red;
+               
+            /* 💨 Upgraded Scrollbar */
+        .container::-webkit-scrollbar {
+            width: 12px;
         }
 
+        .container::-webkit-scrollbar-thumb {
+            background: linear-gradient(45deg, #ff0000, #660000);
+            border-radius: 6px;
+            box-shadow: 0 0 10px red;
+        }
+            
                 h1 {
             margin-bottom: 25px;
             font-size: 2.2em;
@@ -108,6 +122,12 @@
             box-shadow: 0 0 20px red;
             transition: all 0.2s ease-in-out;
             cursor: none; /* 🔥 Hides the cursor in the search bar */
+        }
+          
+            #search-bar:focus {
+            background: #300000;
+            box-shadow: 0 0 35px red;
+            transform: scale(1.05);
         }
 
         .definition-number {
