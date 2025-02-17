@@ -25,7 +25,7 @@
             padding-top: 60px;
             overflow: hidden;
             position: relative;
-            cursor: none;
+            cursor: none; /* 🔥 Hides all default cursors */
         }
 
         .custom-cursor {
@@ -111,7 +111,7 @@
             transition: all 0.3s ease-in-out;
             border: 3px solid #ff4444;
             text-shadow: 0 0 5px red;
-            user-select: text;
+            user-select: none;
             position: relative;
             box-shadow: 0 0 20px red;
             transform: scale(1);
@@ -155,6 +155,18 @@
             margin-top: 15px;
             text-shadow: 0 0 15px red;
         }
+
+        a {
+            color: #ff9999;
+            text-decoration: underline;
+            font-weight: bold;
+        }
+
+        a:hover {
+            color: #ff5555;
+            text-shadow: 0 0 10px red;
+        }
+
     </style>
 </head>
 <body>
@@ -169,7 +181,7 @@
         </div>
 
         <div class='info-board'>
-            <p><strong>🚨 Important:</strong> ERP Accounts are censoring inappropriate words with letters like X. Example: 'rough' censored as 'rxxgh'. BEWARE, DSA MODERATORS.</p>
+            <p><strong>🚨 Important:</strong> ERP Accounts are censoring inappropriate words/phrases with letters like X. E.g., "rough" is censored as "rxxgh." PLEASE BEWARE OF THIS, DSA MODERATORS.</p>
         </div>
 
         <div id='definitions'></div>
@@ -178,7 +190,7 @@
     </div>
 
     <script>
-        const definitions = [
+        const definitions = [ 
             { "number": 1, "term": "ERP", "synonyms": ["Sex", "Erotic Roleplay"], "definition": "Erotic role-play is an activity that predators engage in on the Roblox platform. It involves sexual intercourse on Roblox or sexual roleplay in chat messages." },
             { "number": 2, "term": "Roblox Condo", "synonyms": ["Explicit Game", "ERP Place"], "definition": "A game designed for explicit roleplay, often violating Roblox's ToS." },
             { "number": 3, "term": "MDNI", "synonyms": ["Minors DNI", "Adult Zone"], "definition": "A tag meaning 'Minors Do Not Interact,' often used by adults engaging in inappropriate activity." },
@@ -254,7 +266,7 @@
             { "number": 73, "term": "Morse Code", "synonyms": ["•-", "Bypassed Chat", "Dot Dash"], "definition": "A method used by ERP participants to bypass Roblox's chat filters by encoding inappropriate messages in Morse code. This allows users to communicate explicit content while avoiding detection. Online translators can be used to decode messages: https://morsecode.world/international/translator.html"}, 
             { "number": 74, "term": "Caesar Cipher", "synonyms": ["Shift Cipher", "Bypass Code", "Encrypted Text"], "definition": "A basic encryption technique used by ERP users to disguise explicit messages by shifting letters in the alphabet. This method helps evade Roblox's chat moderation. Decoding tools can be found here: https://cryptii.com/pipes/caesar-cipher"}
         ];
-
+        
         const container = document.getElementById('definitions');
         const searchBar = document.getElementById('search-bar');
         const cursor = document.querySelector('.custom-cursor');
@@ -262,7 +274,7 @@
         function renderDefinitions(filter = '') {
             container.innerHTML = '';
 
-            definitions.forEach(({ number, term, definition, synonyms, link }) => {
+            definitions.forEach(({ number, term, definition, synonyms }) => {
                 if (
                     term.toLowerCase().includes(filter.toLowerCase()) ||
                     synonyms.some(s => s.toLowerCase().includes(filter.toLowerCase())) ||
@@ -273,7 +285,7 @@
                     defElement.innerHTML = `
                         <span class="definition-number">#${number}</span>
                         <p class='term'>${term}</p>
-                        <p>${definition} <br><a href="${link}" target="_blank">🔗 Click Here</a></p>
+                        <p>${definition}</p>
                     `;
                     container.appendChild(defElement);
                     setTimeout(() => defElement.classList.remove('hidden'), 50);
@@ -283,13 +295,6 @@
 
         searchBar.addEventListener('input', (e) => {
             renderDefinitions(e.target.value);
-        });
-
-        document.addEventListener('mousemove', (e) => {
-            requestAnimationFrame(() => {
-                cursor.style.left = `${e.clientX}px`;
-                cursor.style.top = `${e.clientY}px`;
-            });
         });
 
         renderDefinitions();
