@@ -83,6 +83,33 @@
             text-shadow: 0 0 15px red;
         }
 
+                h1 {
+            margin-bottom: 25px;
+            font-size: 2.2em;
+            color: #ff2222;
+            text-shadow: 0 0 20px red;
+        }
+
+        /* 🎭 Interactive Search Bar */
+        .search-container {
+            margin-bottom: 20px;
+        }
+
+        #search-bar {
+            width: 80%;
+            padding: 15px;
+            font-size: 1em;
+            border: 3px solid #ff4444;
+            border-radius: 30px;
+            background: #200000;
+            color: #ff5555;
+            outline: none;
+            text-align: center;
+            box-shadow: 0 0 20px red;
+            transition: all 0.2s ease-in-out;
+            cursor: none; /* 🔥 Hides the cursor in the search bar */
+        }
+
         .definition-number {
             position: absolute;
             top: 10px;
@@ -113,6 +140,7 @@
         .copy-btn:hover {
             background: rgba(255, 50, 50, 1);
             transform: scale(1.05);
+            cursor: none;
         }
 
         .copy-btn:active {
