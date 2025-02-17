@@ -25,7 +25,7 @@
             padding-top: 60px;
             overflow: hidden;
             position: relative;
-            cursor: none; /* 🔥 Hides all default cursors */
+            cursor: none;
         }
 
         /* 🔥 Custom Red Cursor */
@@ -39,9 +39,9 @@
             box-shadow: 0 0 8px red;
             transform: translate(-50%, -50%);
             z-index: 10000;
+            transition: transform 0.03s linear;
         }
 
-        /* 🔥 Main Container */
         .container {
             width: 90%;
             max-width: 1000px;
@@ -55,61 +55,19 @@
             border: 3px solid red;
             position: relative;
             z-index: 2;
+            transition: transform 0.3s ease-in-out;
         }
 
-        /* 💨 Scrollbar */
-        .container::-webkit-scrollbar {
-            width: 12px;
-        }
-
-        .container::-webkit-scrollbar-thumb {
-            background: linear-gradient(45deg, #ff0000, #660000);
-            border-radius: 6px;
-            box-shadow: 0 0 10px red;
-        }
-
-        h1 {
-            margin-bottom: 25px;
-            font-size: 2.2em;
-            color: #ff2222;
-            text-shadow: 0 0 20px red;
-        }
-
-        /* 🎭 Search Bar */
-        .search-container {
-            margin-bottom: 20px;
-        }
-
-        #search-bar {
-            width: 80%;
-            padding: 15px;
-            font-size: 1em;
-            border: 3px solid #ff4444;
-            border-radius: 30px;
-            background: #200000;
-            color: #ff5555;
-            outline: none;
-            text-align: center;
-            box-shadow: 0 0 20px red;
-            cursor: none;
-        }
-
-        #search-bar:focus {
-            background: #300000;
-            box-shadow: 0 0 35px red;
-            transform: scale(1.05);
-        }
-
-        /* 💡 Definition Cards */
         .definition {
+            position: relative;
             margin-bottom: 20px;
             padding: 15px;
             background: rgba(32, 0, 0, 0.95);
             border-radius: 8px;
             border: 3px solid #ff4444;
-            text-shadow: 0 0 5px red;
-            position: relative;
             box-shadow: 0 0 20px red;
+            text-shadow: 0 0 5px red;
+            transition: all 0.3s ease-in-out;
         }
 
         .definition:hover {
@@ -135,37 +93,37 @@
             text-shadow: 0 0 15px red;
         }
 
-        /* 🚀 Copy Button */
+        /* 🔥 Copy Button */
         .copy-btn {
-            background: linear-gradient(45deg, #ff0000, #990000);
-            border: none;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(255, 0, 0, 0.8);
             color: white;
-            padding: 8px 15px;
-            margin-top: 10px;
-            font-size: 1em;
-            border-radius: 6px;
+            border: none;
+            padding: 6px 10px;
+            font-size: 0.9em;
+            font-weight: bold;
             cursor: pointer;
-            text-shadow: 0 0 5px white;
-            box-shadow: 0 0 15px red;
-            transition: all 0.2s ease-in-out;
+            border-radius: 5px;
+            box-shadow: 0 0 10px red;
+            transition: background 0.2s, transform 0.1s;
         }
 
         .copy-btn:hover {
-            background: linear-gradient(45deg, #ff4444, #bb0000);
-            box-shadow: 0 0 25px red;
-            transform: scale(1.1);
+            background: rgba(255, 50, 50, 1);
+            transform: scale(1.05);
         }
 
-        /* 👤 Footer */
-        .footer {
-            font-size: 1.1em;
-            color: #ff6666;
-            font-weight: bold;
-            text-align: center;
-            margin-top: 15px;
-            text-shadow: 0 0 15px red;
+        .copy-btn:active {
+            transform: scale(0.95);
         }
 
+        /* ✅ Copied Animation */
+        .copied {
+            background: limegreen !important;
+            box-shadow: 0 0 15px limegreen !important;
+        }
     </style>
 </head>
 <body>
@@ -176,16 +134,19 @@
     <div class='container'>
         <h1>Roblox ERP Dictionary</h1>
 
+        <!-- Search Bar -->
         <div class='search-container'>
             <input type='text' id='search-bar' placeholder='Search for a term or number...'>
         </div>
 
+        <!-- Info Board -->
         <div class='info-board'>
             <p><strong>🚨 Important:</strong> ERP Accounts are censoring ERP words/phrases with letters most commonly X, eg rough would be rxxgh. Moderators, watch out for this.</p>
         </div>
 
         <div id='definitions'></div>
 
+        <!-- 👤 Made by TGM -->
         <div class="footer">Made by TGM</div>
     </div>
 
@@ -283,28 +244,39 @@
                     const defElement = document.createElement('div');
                     defElement.className = 'definition';
                     defElement.innerHTML = `
+                        <button class="copy-btn" onclick="copyDefinition(this)">Copy</button>
                         <span class="definition-number">#${number}</span>
                         <p class='term'>${term}</p>
-                        <p>${definition}</p>
-                        <button class="copy-btn" onclick="copyText('${definition}')">Copy Text</button>
+                        <p class="def-text">${definition}</p>
                     `;
                     container.appendChild(defElement);
                 }
             });
         }
 
-        function copyText(text) {
-            navigator.clipboard.writeText(text).then(() => alert("Copied to clipboard!"));
+        function copyDefinition(button) {
+            const definitionText = button.parentElement.querySelector('.def-text').innerText;
+            navigator.clipboard.writeText(definitionText).then(() => {
+                button.classList.add('copied');
+                button.innerText = 'Copied!';
+                setTimeout(() => {
+                    button.classList.remove('copied');
+                    button.innerText = 'Copy';
+                }, 2000);
+            });
         }
 
-        setInterval(() => {
-            document.addEventListener('mousemove', (e) => {
+        searchBar.addEventListener('input', (e) => {
+            renderDefinitions(e.target.value);
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            requestAnimationFrame(() => {
                 cursor.style.left = `${e.clientX}px`;
                 cursor.style.top = `${e.clientY}px`;
             });
-        }, 100);
+        });
 
-        searchBar.addEventListener('input', (e) => renderDefinitions(e.target.value));
         renderDefinitions();
     </script>
 </body>
