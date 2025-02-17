@@ -42,7 +42,6 @@
             transition: transform 0.03s linear;
         }
 
-        /* 🔥 Main Container */
         .container {
             width: 90%;
             max-width: 1000px;
@@ -63,7 +62,6 @@
             transform: scale(1.02);
         }
 
-        /* 💨 Upgraded Scrollbar */
         .container::-webkit-scrollbar {
             width: 12px;
         }
@@ -81,7 +79,6 @@
             text-shadow: 0 0 20px red;
         }
 
-        /* 🎭 Interactive Search Bar */
         .search-container {
             margin-bottom: 20px;
         }
@@ -98,7 +95,7 @@
             text-align: center;
             box-shadow: 0 0 20px red;
             transition: all 0.2s ease-in-out;
-            cursor: none; /* 🔥 Hides the cursor in the search bar */
+            cursor: none; 
         }
 
         #search-bar:focus {
@@ -107,7 +104,6 @@
             transform: scale(1.05);
         }
 
-        /* 💡 Definition Cards */
         .definition {
             margin-bottom: 20px;
             padding: 15px;
@@ -123,7 +119,6 @@
             opacity: 1;
         }
 
-        /* 🔥 Popout Effect Restored */
         .definition:hover {
             background: rgba(48, 0, 0, 0.95);
             box-shadow: 0 0 30px red;
@@ -137,7 +132,6 @@
             text-shadow: 0 0 15px red;
         }
 
-        /* 🔢 Numbering on Definitions */
         .definition-number {
             position: absolute;
             top: 10px;
@@ -148,14 +142,12 @@
             text-shadow: 0 0 15px red;
         }
 
-        /* ⬇️ Smooth Hiding Animation */
         .hidden {
             opacity: 0;
             transform: translateY(-10px);
             transition: all 0.3s ease-in-out;
         }
 
-        /* 👤 TGM Footer */
         .footer {
             font-size: 1.1em;
             color: #ff6666;
@@ -165,29 +157,52 @@
             text-shadow: 0 0 15px red;
         }
 
+        /* 🔥 Stylish Copy Button */
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: #ff2222;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: bold;
+            box-shadow: 0 0 10px red;
+            transition: all 0.2s ease-in-out;
+            text-shadow: 0 0 5px black;
+        }
+
+        .copy-btn:hover {
+            background: #cc0000;
+            box-shadow: 0 0 15px red;
+        }
+
+        .copy-btn:active {
+            transform: scale(0.95);
+            background: #990000;
+        }
     </style>
 </head>
 <body>
 
-    <!-- 🖱️ Custom Cursor -->
     <div class="custom-cursor"></div>
 
     <div class='container'>
         <h1>Roblox ERP Dictionary</h1>
 
-        <!-- Search Bar -->
         <div class='search-container'>
             <input type='text' id='search-bar' placeholder='Search for a term or number...'>
         </div>
 
-        <!-- Info Board -->
         <div class='info-board'>
             <p><strong>🚨 Important:</strong> ERP Accounts are censoring ERP words/phrases with letters most commonly X, eg rough would be rxxgh. Moderators, watch out for this.</p>
         </div>
 
         <div id='definitions'></div>
 
-        <!-- 👤 Made by TGM -->
         <div class="footer">Made by TGM</div>
     </div>
 
@@ -271,7 +286,6 @@
 
         const container = document.getElementById('definitions');
         const searchBar = document.getElementById('search-bar');
-        const cursor = document.querySelector('.custom-cursor');
 
         function renderDefinitions(filter = '') {
             container.innerHTML = '';
@@ -283,28 +297,25 @@
                     number.toString().includes(filter)
                 ) {
                     const defElement = document.createElement('div');
-                    defElement.className = 'definition hidden';
+                    defElement.className = 'definition';
                     defElement.innerHTML = `
                         <span class="definition-number">#${number}</span>
+                        <button class="copy-btn" onclick="copyText('${definition}', this)">Copy Text</button>
                         <p class='term'>${term}</p>
                         <p>${definition}</p>
                     `;
                     container.appendChild(defElement);
-                    setTimeout(() => defElement.classList.remove('hidden'), 50);
                 }
             });
         }
 
-        searchBar.addEventListener('input', (e) => {
-            renderDefinitions(e.target.value);
-        });
+        function copyText(text, btn) {
+            navigator.clipboard.writeText(text);
+            btn.textContent = "Copied!";
+            setTimeout(() => btn.textContent = "Copy Text", 2000);
+        }
 
-        document.addEventListener('mousemove', (e) => {
-            requestAnimationFrame(() => {
-                cursor.style.left = `${e.clientX}px`;
-                cursor.style.top = `${e.clientY}px`;
-            });
-        });
+        searchBar.addEventListener('input', (e) => renderDefinitions(e.target.value));
 
         renderDefinitions();
     </script>
