@@ -363,5 +363,258 @@
         renderDefinitions();
     </script>
 </body>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Roblox ERP Dictionary</title>
+    <style>
+        @keyframes bgAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(-45deg, #200000, #400000, #200000);
+            background-size: 300% 300%;
+            animation: bgAnimation 10s infinite ease-in-out;
+            color: #ff5555;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 100vh;
+            margin: 0;
+            padding-top: 60px;
+            overflow: hidden;
+            position: relative;
+            cursor: none;
+        }
+
+        .custom-cursor {
+            position: fixed;
+            width: 12px;
+            height: 12px;
+            background: red;
+            border-radius: 50%;
+            pointer-events: none;
+            box-shadow: 0 0 8px red;
+            transform: translate(-50%, -50%);
+            z-index: 10000;
+            transition: transform 0.03s linear;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            background: rgba(21, 0, 0, 0.95);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 0 40px rgba(255, 0, 0, 0.8);
+            text-align: center;
+            max-height: 80vh;
+            overflow-y: auto;
+            border: 3px solid red;
+            position: relative;
+            z-index: 2;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .container:hover {
+            transform: scale(1.02);
+        }
+
+        .container::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        .container::-webkit-scrollbar-thumb {
+            background: linear-gradient(45deg, #ff0000, #660000);
+            border-radius: 6px;
+            box-shadow: 0 0 10px red;
+        }
+
+        h1 {
+            margin-bottom: 25px;
+            font-size: 2.2em;
+            color: #ff2222;
+            text-shadow: 0 0 20px red;
+        }
+
+        .search-container {
+            margin-bottom: 20px;
+        }
+
+        #search-bar {
+            width: 80%;
+            padding: 15px;
+            font-size: 1em;
+            border: 3px solid #ff4444;
+            border-radius: 30px;
+            background: #200000;
+            color: #ff5555;
+            outline: none;
+            text-align: center;
+            box-shadow: 0 0 20px red;
+            transition: all 0.2s ease-in-out;
+            cursor: none;
+        }
+
+        #search-bar:focus {
+            background: #300000;
+            box-shadow: 0 0 35px red;
+            transform: scale(1.05);
+        }
+
+        .definition {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(32, 0, 0, 0.95);
+            border-radius: 8px;
+            transition: all 0.3s ease-in-out;
+            border: 3px solid #ff4444;
+            text-shadow: 0 0 5px red;
+            user-select: none;
+            position: relative;
+            box-shadow: 0 0 20px red;
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .definition:hover {
+            background: rgba(48, 0, 0, 0.95);
+            box-shadow: 0 0 30px red;
+            transform: scale(1.05);
+        }
+
+        .term {
+            font-weight: bold;
+            font-size: 1.5em;
+            color: #ff6666;
+            text-shadow: 0 0 15px red;
+        }
+
+        .definition-number {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #ff9999;
+            text-shadow: 0 0 15px red;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(255, 0, 0, 0.8);
+            color: white;
+            border: none;
+            padding: 6px 10px;
+            font-size: 0.9em;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 5px;
+            box-shadow: 0 0 10px red;
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        .copy-btn:hover {
+            background: rgba(255, 50, 50, 1);
+            transform: scale(1.05);
+        }
+
+        .copy-btn:active {
+            transform: scale(0.95);
+        }
+
+        .erp-avatar {
+            display: none;
+            width: 300px;
+            height: auto;
+            margin-top: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px red;
+            border: 3px solid red;
+        }
+
+        .erp-button {
+            background: red;
+            color: white;
+            padding: 10px 15px;
+            font-size: 1em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: background 0.2s;
+        }
+
+        .erp-button:hover {
+            background: darkred;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class='container'>
+        <h1>Roblox ERP Dictionary</h1>
+
+        <button class="erp-button" onclick="toggleERP()">ERP Avatar</button>
+
+        <img id="erp-avatar" class="erp-avatar" src="https://via.placeholder.com/300" alt="ERP Avatar">
+
+        <div class='search-container'>
+            <input type='text' id='search-bar' placeholder='Search for a term or number...'>
+        </div>
+
+        <div id='definitions'></div>
+
+        <div class="footer"><strong>Made by TGM</strong></div>
+    </div>
+
+    <script>
+        const definitions = [
+            { "number": 1, "term": "ERP", "synonyms": ["Sex", "Erotic Roleplay"], "definition": "Erotic role-play (ERP) refers to sexually explicit interactions between users on Roblox, often conducted through chat messages or in private games. These activities can include detailed sexual descriptions, simulated intercourse, and suggestive behaviors, making them a violation of Roblox’s ToS." }
+        ];
+
+        const container = document.getElementById('definitions');
+        const searchBar = document.getElementById('search-bar');
+        const erpAvatar = document.getElementById('erp-avatar');
+
+        function renderDefinitions(filter = '') {
+            container.innerHTML = '';
+
+            definitions.forEach(({ number, term, definition, synonyms }) => {
+                if (
+                    term.toLowerCase().includes(filter.toLowerCase()) ||
+                    synonyms.some(s => s.toLowerCase().includes(filter.toLowerCase())) ||
+                    number.toString().includes(filter)
+                ) {
+                    const defElement = document.createElement('div');
+                    defElement.className = 'definition';
+                    defElement.innerHTML = `
+                        <button class="copy-btn" onclick="copyDefinition(this)">Copy</button>
+                        <span class="definition-number">#${number}</span>
+                        <p class='term'>${term}</p>
+                        <p class="def-text">${definition}</p>
+                    `;
+                    container.appendChild(defElement);
+                }
+            });
+        }
+
+        function toggleERP() {
+            erpAvatar.style.display = erpAvatar.style.display === 'block' ? 'none' : 'block';
+            container.style.display = erpAvatar.style.display === 'block' ? 'none' : 'block';
+        }
+
+        renderDefinitions();
+    </script>
+</body>
+</html>
+
 </html>
 
