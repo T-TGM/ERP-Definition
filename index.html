@@ -363,5 +363,193 @@
         renderDefinitions();
     </script>
 </body>
+<body>
+
+    <!-- 🖱️ Custom Cursor -->
+    <div class="custom-cursor"></div>
+
+    <!-- 🔥 ERP Avatars Button (Toggles Visibility) -->
+    <button id="erp-avatars-btn" class="erp-btn" onclick="toggleAvatars()">ERP Avatars</button>
+
+    <div class='container'>
+        <h1>Roblox ERP Dictionary</h1>
+
+        <!-- Search Bar -->
+        <div class='search-container'>
+            <input type='text' id='search-bar' placeholder='Search for a term or number...'>
+        </div>
+
+        <!-- Info Board -->
+        <div class='info-board'>
+            <p><strong>🚨 Important:</strong> ERP Accounts are censoring ERP words/phrases with letters most commonly X, eg rough would be rxxgh. Moderators, watch out for this.</p>
+        </div>
+
+        <!-- Definitions Section -->
+        <div id='definitions'></div>
+
+        <!-- 🔥 ERP Avatars Section (Initially Hidden) -->
+        <div id="erp-avatars" style="display: none;"></div>
+
+        <!-- 👤 Made by TGM -->
+        <div class="footer"><strong>Made by TGM</strong></div>
+    </div>
+
+    <script>
+        const definitions = [
+            { "number": 1, "term": "ERP", "synonyms": ["Sex", "Erotic Roleplay"], "definition": "Erotic role-play (ERP) refers to sexually explicit interactions between users on Roblox, often conducted through chat messages or in private games. These activities can include detailed sexual descriptions, simulated intercourse, and suggestive behaviors, making them a violation of Roblox’s ToS. ERP is frequently exploited by predators to engage in inappropriate interactions with minors, posing significant safety risks." }
+        ];
+
+        const erpAvatars = [
+            { "name": "Example Avatar", "image": "example.png", "description": "This is an example ERP avatar description." }
+        ];
+
+        const container = document.getElementById('definitions');
+        const avatarContainer = document.getElementById('erp-avatars');
+        const searchBar = document.getElementById('search-bar');
+        const cursor = document.querySelector('.custom-cursor');
+
+        function renderDefinitions(filter = '') {
+            container.innerHTML = '';
+            definitions.forEach(({ number, term, definition, synonyms }) => {
+                if (
+                    term.toLowerCase().includes(filter.toLowerCase()) ||
+                    synonyms.some(s => s.toLowerCase().includes(filter.toLowerCase())) ||
+                    number.toString().includes(filter)
+                ) {
+                    const defElement = document.createElement('div');
+                    defElement.className = 'definition';
+                    defElement.innerHTML = `
+                        <button class="copy-btn" onclick="copyDefinition(this)">Copy</button>
+                        <span class="definition-number">#${number}</span>
+                        <p class='term'>${term}</p>
+                        <p class="def-text">${definition}</p>
+                    `;
+                    container.appendChild(defElement);
+                }
+            });
+        }
+
+        function renderAvatars() {
+            avatarContainer.innerHTML = '';
+            erpAvatars.forEach(({ name, image, description }) => {
+                const avatarElement = document.createElement('div');
+                avatarElement.className = 'definition';
+                avatarElement.innerHTML = `
+                    <img src="${image}" alt="${name}" class="avatar-img">
+                    <p class='term'>${name}</p>
+                    <p class="def-text">${description}</p>
+                `;
+                avatarContainer.appendChild(avatarElement);
+            });
+        }
+
+        function toggleAvatars() {
+            const isVisible = avatarContainer.style.display === 'block';
+            avatarContainer.style.display = isVisible ? 'none' : 'block';
+            container.style.display = isVisible ? 'block' : 'none';
+            searchBar.style.display = isVisible ? 'block' : 'none';
+            if (!isVisible) renderAvatars();
+        }
+
+        function copyDefinition(button) {
+            const definitionText = button.parentElement.querySelector('.def-text').innerText;
+            navigator.clipboard.writeText(definitionText).then(() => {
+                button.classList.add('copied');
+                button.innerText = 'Copied!';
+                setTimeout(() => {
+                    button.classList.remove('copied');
+                    button.innerText = 'Copy';
+                }, 2000);
+            });
+        }
+
+        searchBar.addEventListener('input', (e) => {
+            renderDefinitions(e.target.value);
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            requestAnimationFrame(() => {
+                cursor.style.left = `${e.clientX}px`;
+                cursor.style.top = `${e.clientY}px`;
+            });
+        });
+
+        renderDefinitions();
+    </script>
+
+    <style>
+        /* 🔥 ERP Buttons */
+        .erp-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: #ff0000;
+            color: white;
+            font-size: 1.2em;
+            font-weight: bold;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 0 15px red;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        .erp-btn:hover {
+            background: #cc0000;
+            transform: scale(1.1);
+        }
+
+        /* 🔥 Definitions & Avatars Look Identical */
+        .definition {
+            background: #222;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.6);
+            position: relative;
+        }
+
+        .definition-number {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #ff4747;
+        }
+
+        .copy-btn {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            background: #ff4747;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .copy-btn:hover {
+            background: #cc0000;
+        }
+
+        /* 🔥 Avatar Images */
+        .avatar-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 10px;
+            object-fit: cover;
+            display: block;
+            margin-bottom: 10px;
+            border: 2px solid white;
+        }
+
+        /* 🔥 Show/Hide Elements Smoothly */
+        #erp-avatars, #definitions {
+            transition: opacity 0.3s ease-in-out;
+        }
+    </style>
+
+</body>
 </html>
 
