@@ -363,5 +363,138 @@
         renderDefinitions();
     </script>
 </body>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Roblox ERP Dictionary</title>
+    <style>
+        /* (Your existing styles remain unchanged) */
+
+        /* 🚨 ERP Definitions Initially Hidden */
+        .erp-definitions {
+            display: none;
+        }
+
+        /* 🔘 Toggle Button */
+        .toggle-btn {
+            background: rgba(255, 0, 0, 0.8);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 5px;
+            box-shadow: 0 0 10px red;
+            transition: background 0.2s, transform 0.1s;
+            margin-bottom: 15px;
+        }
+
+        .toggle-btn:hover {
+            background: rgba(255, 50, 50, 1);
+            transform: scale(1.05);
+        }
+
+        .toggle-btn:active {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+<body>
+
+    <div class='container'>
+        <h1>Roblox ERP Dictionary</h1>
+
+        <!-- Toggle ERP Avatar Definitions -->
+        <button class="toggle-btn" onclick="toggleERP()">Show ERP Avatars</button>
+
+        <!-- Search Bar -->
+        <div class='search-container'>
+            <input type='text' id='search-bar' placeholder='Search for a term or number...'>
+        </div>
+
+        <!-- Info Board -->
+        <div class='info-board'>
+            <p><strong>🚨 Important:</strong> ERP Accounts are censoring ERP words/phrases with letters most commonly X, eg rough would be rxxgh. Moderators, watch out for this.</p>
+        </div>
+
+        <!-- Definition Sections -->
+        <div id='definitions'></div>
+
+        <!-- ERP Avatar Definitions (Hidden by Default) -->
+        <div id='erp-definitions' class="erp-definitions"></div>
+
+        <!-- 👤 Made by TGM -->
+        <div class="footer"><strong>Made by TGM</strong></div>
+    </div>
+
+    <script>
+        const definitions = [
+            { "number": 1, "term": "ERP", "synonyms": ["Sex", "Erotic Roleplay"], "definition": "Erotic role-play (ERP) refers to sexually explicit interactions between users on Roblox, often conducted through chat messages or in private games. These activities can include detailed sexual descriptions, simulated intercourse, and suggestive behaviors, making them a violation of Roblox’s ToS. ERP is frequently exploited by predators to engage in inappropriate interactions with minors, posing significant safety risks." }
+        ];
+
+        const erpDefinitions = [
+            { "number": 2, "term": "ERP Avatar", "synonyms": ["Sexualized Avatar"], "definition": "An ERP avatar is a customized Roblox character designed to appear overly sexual or suggestive. These avatars often include revealing clothing, inappropriate accessories, and certain body proportions meant to attract ERP participants. The use of ERP avatars violates Roblox’s policies on appropriate character design and is frequently used by individuals engaging in illicit roleplay." }
+        ];
+
+        const container = document.getElementById('definitions');
+        const erpContainer = document.getElementById('erp-definitions');
+        const searchBar = document.getElementById('search-bar');
+        const toggleBtn = document.querySelector('.toggle-btn');
+
+        function renderDefinitions(filter = '') {
+            container.innerHTML = '';
+            definitions.forEach(({ number, term, definition, synonyms }) => {
+                if (
+                    term.toLowerCase().includes(filter.toLowerCase()) ||
+                    synonyms.some(s => s.toLowerCase().includes(filter.toLowerCase())) ||
+                    number.toString().includes(filter)
+                ) {
+                    const defElement = document.createElement('div');
+                    defElement.className = 'definition';
+                    defElement.innerHTML = `
+                        <span class="definition-number">#${number}</span>
+                        <p class='term'>${term}</p>
+                        <p class="def-text">${definition}</p>
+                    `;
+                    container.appendChild(defElement);
+                }
+            });
+        }
+
+        function renderERPDefinitions() {
+            erpContainer.innerHTML = '';
+            erpDefinitions.forEach(({ number, term, definition, synonyms }) => {
+                const defElement = document.createElement('div');
+                defElement.className = 'definition';
+                defElement.innerHTML = `
+                    <span class="definition-number">#${number}</span>
+                    <p class='term'>${term}</p>
+                    <p class="def-text">${definition}</p>
+                `;
+                erpContainer.appendChild(defElement);
+            });
+        }
+
+        function toggleERP() {
+            if (erpContainer.style.display === 'none' || erpContainer.style.display === '') {
+                erpContainer.style.display = 'block';
+                toggleBtn.innerText = 'Hide ERP Avatars';
+            } else {
+                erpContainer.style.display = 'none';
+                toggleBtn.innerText = 'Show ERP Avatars';
+            }
+        }
+
+        searchBar.addEventListener('input', (e) => {
+            renderDefinitions(e.target.value);
+        });
+
+        renderDefinitions();
+        renderERPDefinitions();
+    </script>
+</body>
+</html>
+
 </html>
 
